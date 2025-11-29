@@ -10,13 +10,13 @@
 
     <div class="table-container">
         <table class="styled-table">
-            
+
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Tipo</th> 
-                    <th>Nome/Loja</th> 
-                    <th>CPF/CNPJ</th> 
+                    <th>Tipo</th>
+                    <th>Nome/Loja</th>
+                    <th>CPF/CNPJ</th>
                     <th>Email</th>
                     <th>Telefone</th>
                     <th>Ações</th>
@@ -27,7 +27,7 @@
                 % for u in users:
                 <tr>
                     <td>{{u.id}}</td>
-                    
+
                     <td>
                         % if u.to_dict().get('user_type') == 'PF':
                         <span class="user-tag tag-pf">PF</span>
@@ -35,20 +35,20 @@
                         <span class="user-tag tag-pj">Lojista</span>
                         % end
                     </td>
-                    
+
                     <td>{{u.nome if u.to_dict().get('user_type') == 'PF' else u.nome_loja}}</td>
-                    
+
                     <td>{{u.cpf_cnpj}}</td>
-                    
+
                     <td><a href="mailto:{{u.email}}">{{u.email}}</a></td>
                     <td>{{u.telefone}}</td>
-                    
+
                     <td class="actions">
                         <a href="/users/edit/{{u.id}}" class="btn btn-sm btn-edit">
                             <i class="fas fa-edit"></i> Editar
                         </a>
 
-                        <form action="/users/delete/{{u.id}}" method="post" 
+                        <form action="/users/delete/{{u.id}}" method="post"
                               onsubmit="return confirm('Tem certeza?')">
                             <button type="submit" class="btn btn-sm btn-danger">
                                 <i class="fas fa-trash-alt"></i> Excluir
