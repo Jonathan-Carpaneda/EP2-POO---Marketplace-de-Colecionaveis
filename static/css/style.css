@@ -1,37 +1,201 @@
-/* Reset e Estilos Globais */
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2980b9;
-  --danger-color: #e74c3c;
-  --success-color: #2ecc71;
-  --text-color: #333;
-  --light-gray: #f5f5f5;
-  --border-color: #ddd;
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+/* ---------------------------------------------------- */
+/* 1. TEMA DARK GAMER GLOBAL */
+/* ---------------------------------------------------- */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: #f9f9f9;
-  padding: 0;
-  margin: 0;
+    background-color: #1a1a2e; /* Azul Escuro Púrpura (Dark Gamer) */
+    color: #e0e0e0; /* Texto Claro */
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.6;
 }
 
-/* Layout */
+/* Container principal para centralizar conteúdo */
 .container {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
+/* Títulos */
+h1 {
+    font-size: 2.2em;
+    color: #e94560; /* Vermelho Neon/Vibrante */
+    border-bottom: 2px solid #0f3460;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------- */
+/* 2. HEADER E NAVBAR */
+/* ---------------------------------------------------- */
+
+.navbar {
+    background-color: #0f3460; /* Azul Escuro */
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #e94560; /* Linha de destaque */
+}
+
+.navbar a {
+    color: #e0e0e0; /* Cor do link claro */
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #ffc947; /* Amarelo/Laranja para hover */
+}
+
+/* NOVO ESTILO: Texto do Logo */
+.logo-text {
+    font-family: 'Audiowide', cursive; /* Aplica a fonte importada */
+    font-size: 1.8rem; /* Tamanho do texto */
+    font-weight: normal; 
+    color: #ffc947; /* Cor de destaque para o logo */
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+/* Estilo para a imagem do logo (mantido caso queira voltar) */
+/* .logo-img { height: 70px; width: auto; } */
+
+
+/* ---------------------------------------------------- */
+/* 3. LAYOUT DE FORMULÁRIO (user_form.tpl) */
+/* ---------------------------------------------------- */
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-container {
+    background-color: #16213e; 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 450px; 
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block; 
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ffc947; 
+}
+
+/* Estilo unificado para inputs e os novos SELECT e TEXTAREA */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="date"],
+.form-container select, /* NOVO ESTILO: dropdown de tipo */
+.form-container textarea { /* NOVO ESTILO: campo de endereço */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #0f3460;
+    border-radius: 5px;
+    background-color: #1a1a2e; 
+    color: #e0e0e0;
+    box-sizing: border-box; 
+    /* Garante que o select não seja feio */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+/* ---------------------------------------------------- */
+/* 4. BOTÕES (Geral e Form) */
+/* ---------------------------------------------------- */
+/* ... (Mantenha o restante dos estilos de botões) ... */
+
+.btn-submit {
+    background-color: #e94560;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #ff6b86;
+}
+.btn-cancel:hover {
+    background-color: #555;
+}
+.btn-primary { 
+    background-color: #e94560;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    display: flex; 
+    align-items: center;
+    gap: 8px;
+}
+
+/* ---------------------------------------------------- */
+/* 5. TABELAS (users.tpl) */
+/* ---------------------------------------------------- */
+/* ... (Mantenha o restante dos estilos de tabela) ... */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #e94560; 
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #16213e; 
+}
+
+.styled-table tbody tr {
+    background-color: #16213e; 
+    color: #e0e0e0;
+    transition: background-color 0.3s;
+}

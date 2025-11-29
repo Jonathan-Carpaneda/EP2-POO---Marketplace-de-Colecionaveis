@@ -1,4 +1,4 @@
-%rebase('layout', title='Usuários')
+%rebase('layout', title='Gestão de Usuários')
 
 <section class="users-section">
     <div class="section-header">
@@ -14,9 +14,11 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nome</th>
+                    <th>Tipo</th> 
+                    <th>Nome/Loja</th> 
+                    <th>CPF/CNPJ</th> 
                     <th>Email</th>
-                    <th>Data Nasc.</th>
+                    <th>Telefone</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -25,9 +27,21 @@
                 % for u in users:
                 <tr>
                     <td>{{u.id}}</td>
-                    <td>{{u.name}}</td>
+                    
+                    <td>
+                        % if u.to_dict().get('user_type') == 'PF':
+                        <span class="user-tag tag-pf">PF</span>
+                        % else:
+                        <span class="user-tag tag-pj">Lojista</span>
+                        % end
+                    </td>
+                    
+                    <td>{{u.nome if u.to_dict().get('user_type') == 'PF' else u.nome_loja}}</td>
+                    
+                    <td>{{u.cpf_cnpj}}</td>
+                    
                     <td><a href="mailto:{{u.email}}">{{u.email}}</a></td>
-                    <td>{{u.birthdate}}</td>
+                    <td>{{u.telefone}}</td>
                     
                     <td class="actions">
                         <a href="/users/edit/{{u.id}}" class="btn btn-sm btn-edit">
