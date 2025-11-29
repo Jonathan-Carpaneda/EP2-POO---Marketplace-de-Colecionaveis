@@ -3,8 +3,8 @@
 /* 1. TEMA DARK GAMER GLOBAL */
 /* ---------------------------------------------------- */
 body {
-    background-color: #1a1a2e; /* Azul Escuro Púrpura (Dark Gamer) */
-    color: #e0e0e0; /* Texto Claro */
+    background-color: #1a1a2e;
+    color: #e0e0e0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     margin: 0;
@@ -21,7 +21,7 @@ body {
 /* Títulos */
 h1 {
     font-size: 2.2em;
-    color: #e94560; /* Vermelho Neon/Vibrante */
+    color: #e94560;
     border-bottom: 2px solid #0f3460;
     padding-bottom: 10px;
     margin-bottom: 20px;
@@ -32,16 +32,16 @@ h1 {
 /* ---------------------------------------------------- */
 
 .navbar {
-    background-color: #0f3460; /* Azul Escuro */
+    background-color: #0f3460; 
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 3px solid #e94560; /* Linha de destaque */
+    border-bottom: 3px solid #e94560;
 }
 
 .navbar a {
-    color: #e0e0e0; /* Cor do link claro */
+    color: #e0e0e0;
     text-decoration: none;
     margin-left: 20px;
     font-weight: bold;
@@ -52,18 +52,15 @@ h1 {
     color: #ffc947; /* Amarelo/Laranja para hover */
 }
 
-/* NOVO ESTILO: Texto do Logo */
+/* Texto do Logo */
 .logo-text {
-    font-family: 'Audiowide', cursive; /* Aplica a fonte importada */
-    font-size: 1.8rem; /* Tamanho do texto */
+    font-family: 'Audiowide', cursive;
+    font-size: 1.8rem;
     font-weight: normal; 
     color: #ffc947; /* Cor de destaque para o logo */
     text-decoration: none;
     letter-spacing: 2px;
 }
-/* Estilo para a imagem do logo (mantido caso queira voltar) */
-/* .logo-img { height: 70px; width: auto; } */
-
 
 /* ---------------------------------------------------- */
 /* 3. LAYOUT DE FORMULÁRIO (user_form.tpl) */
@@ -96,12 +93,12 @@ h1 {
     color: #ffc947; 
 }
 
-/* Estilo unificado para inputs e os novos SELECT e TEXTAREA */
 .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="date"],
-.form-container select, /* NOVO ESTILO: dropdown de tipo */
-.form-container textarea { /* NOVO ESTILO: campo de endereço */
+.form-container input[type="tel"],
+.form-container select, 
+.form-container textarea { 
     width: 100%;
     padding: 10px;
     border: 1px solid #0f3460;
@@ -109,7 +106,6 @@ h1 {
     background-color: #1a1a2e; 
     color: #e0e0e0;
     box-sizing: border-box; 
-    /* Garante que o select não seja feio */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -124,8 +120,6 @@ h1 {
 /* ---------------------------------------------------- */
 /* 4. BOTÕES (Geral e Form) */
 /* ---------------------------------------------------- */
-/* ... (Mantenha o restante dos estilos de botões) ... */
-
 .btn-submit {
     background-color: #e94560;
     color: white;
@@ -171,7 +165,6 @@ h1 {
 /* ---------------------------------------------------- */
 /* 5. TABELAS (users.tpl) */
 /* ---------------------------------------------------- */
-/* ... (Mantenha o restante dos estilos de tabela) ... */
 .styled-table {
     width: 100%;
     border-collapse: collapse;
@@ -198,4 +191,197 @@ h1 {
     background-color: #16213e; 
     color: #e0e0e0;
     transition: background-color 0.3s;
+}
+
+/* Estilo de Hover */
+.styled-table tbody tr:hover {
+    background-color: #0f3460; 
+    color: #ffc947; /* Texto amarelo para destaque */
+}
+
+/* Container de cabeçalho da seção */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Icones da lista de usuários */
+.section-title i {
+    margin-right: 10px;
+    color: #ffc947;
+}
+
+/* ---------------------------------------------------- */
+/* 6. TAGS DE USUÁRIO (users.tpl) */
+/* ---------------------------------------------------- */
+
+.user-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tag-pf {
+    background-color: #38a169; /* Verde (Pessoa Física) */
+    color: #fff;
+}
+
+.tag-pj {
+    background-color: #0f3460; /* Azul Escuro (Pessoa Jurídica/Lojista) */
+    color: #ffc947; /* Amarelo de destaque */
+    border: 1px solid #ffc947;
+}
+
+/* ---------------------------------------------------- */
+/* 7. BOTÕES DE AÇÃO NA TABELA */
+/* ---------------------------------------------------- */
+
+.actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.actions form {
+    margin: 0; 
+}
+
+.btn-sm {
+    padding: 6px 10px;
+    font-size: 0.85em;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-edit {
+    background-color: #ffc947; 
+    color: #1a1a2e; 
+}
+.btn-edit:hover {
+    background-color: #ffd873; 
+}
+
+.btn-danger {
+    background-color: #e94560; 
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #ff6b86;
+}
+
+/* ---------------------------------------------------- */
+/* 8. VITRINE DE ITENS (itens.tpl) */
+/* ---------------------------------------------------- */
+
+.marketplace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #0f3460;
+    padding-bottom: 15px;
+}
+
+.btn-action { 
+    background-color: #ffc947;
+    color: #1a1a2e;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-action:hover {
+    background-color: #e94560;
+    color: white;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.item-card {
+    background-color: #16213e; 
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h3 {
+    color: #e94560;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.5em;
+}
+
+.card-content .category {
+    color: #ffc947;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.card-content .price {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-top: 10px;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Botões dentro do card */
+.card-actions .btn-edit,
+.card-actions .btn-delete {
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: opacity 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.card-actions .btn-edit {
+    background-color: #0f3460;
+    color: #ffc947;
+}
+
+.card-actions .btn-delete {
+    background-color: #e94560;
+    color: white;
 }
