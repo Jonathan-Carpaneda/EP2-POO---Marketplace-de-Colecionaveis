@@ -9,53 +9,53 @@
         <div class="form-group">
             <label for="user_type">Tipo de Cadastro:</label>
             <select id="user_type" name="user_type" required>
-                <option value="">Selecione...</option> [cite: 16]
+                <option value="">Selecione...</option>
                 <option value="PF">Pessoa Física</option>
                 <option value="PJ">Lojista (Pessoa Jurídica)</option>
             </select>
         </div>
         % else:
         <input type="hidden" name="user_type" value="{{user.user_type}}">
-        <p>Tipo de Usuário: <strong>{{'Pessoa Física' if user.user_type == 'PF' else 'Lojista'}}</strong></p> [cite: 17]
+        <p>Tipo de Usuário: <strong>{{'Pessoa Física' if user.user_type == 'PF' else 'Lojista'}}</strong></p>
         % end
         
         <div id="pf-fields" style="display: none;">
             <div class="form-group">
-                <label for="nome_pf">Nome Completo:</label>
-                <input type="text" id="nome_pf" name="nome" 
-                       [cite_start]value="{{user.nome if user and user.user_type == 'PF' else ''}}" [cite: 18]
+                <label for="name_pf">Nome Completo:</label>
+                <input type="text" id="name_pf" name="name" 
+                       value="{{user.name if user and user.user_type == 'PF' else ''}}" 
                        placeholder="Seu nome completo">
             </div>
             <div class="form-group">
                 <label for="cpf">CPF:</label>
                 <input type="text" id="cpf" name="cpf_cnpj" 
-                       value="{{user.cpf_cnpj if user and user.user_type == 'PF' else ''}}" 
-                       [cite_start]placeholder="000.000.000-00"> [cite: 19]
+                       value="{{user.cpf_cnpj if user and user.user_type == 'PF' else ''}}"
+                       placeholder="000.000.000-00">
             </div>
             <div class="form-group">
-                <label for="data_nascimento">Data de Nascimento:</label>
-                <input type="date" id="data_nascimento" name="data_nascimento" 
-                       [cite_start]value="{{user.data_nascimento if user and user.user_type == 'PF' else ''}}"> [cite: 20]
+                <label for="birthdate">Data de Nascimento:</label>
+                <input type="date" id="birthdate" name="birthdate" 
+                       value="{{user.birthdate if user and user.user_type == 'PF' else ''}}">
             </div>
         </div>
         
         <div id="pj-fields" style="display: none;">
             <div class="form-group">
                 <label for="responsavel">Nome do Responsável:</label>
-                <input type="text" id="responsavel" name="nome" 
-                       [cite_start]value="{{user.nome if user and user.user_type == 'PJ' else ''}}" [cite: 21]
+                <input type="text" id="responsavel" name="name" 
+                       value="{{user.name if user and user.user_type == 'PJ' else ''}}"
                        placeholder="Nome do Sócio/Responsável">
             </div>
             <div class="form-group">
                 <label for="nome_loja">Nome da Loja:</label>
                 <input type="text" id="nome_loja" name="nome_loja" 
-                       [cite_start]value="{{user.nome_loja if user and user.user_type == 'PJ' else ''}}" [cite: 22]
+                       value="{{user.nome_loja if user and user.user_type == 'PJ' else ''}}"
                        placeholder="Nome Fantasia da Loja">
             </div>
             <div class="form-group">
                 <label for="cnpj">CNPJ:</label>
                 <input type="text" id="cnpj" name="cpf_cnpj" 
-                       [cite_start]value="{{user.cpf_cnpj if user and user.user_type == 'PJ' else ''}}" [cite: 23]
+                       value="{{user.cpf_cnpj if user and user.user_type == 'PJ' else ''}}"
                        placeholder="XX.XXX.XXX/0001-XX">
             </div>
         </div>
@@ -63,14 +63,29 @@
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required 
-                   [cite_start]value="{{user.email if user else ''}}" [cite: 24]
+                   value="{{user.email if user else ''}}"
                    placeholder="seu.email@exemplo.com">
         </div>
+        
+        {*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
+LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
+LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
+LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}
+
+        <div class="form-group">
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        {*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
+LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
+LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
+LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}
         
         <div class="form-group">
             <label for="telefone">Telefone (Whatsapp):</label>
             <input type="tel" id="telefone" name="telefone" required 
-                   [cite_start]value="{{user.telefone if user else ''}}" [cite: 25]
+                   value="{{user.telefone if user else ''}}"
                    placeholder="(XX) 9XXXX-XXXX">
         </div>
         
@@ -88,24 +103,23 @@
 
 <script>
     const userTypeSelect = document.getElementById('user_type');
-    const pfFields = document.getElementById('pf-fields'); [cite: 27]
+    const pfFields = document.getElementById('pf-fields');
     const pjFields = document.getElementById('pj-fields');
-    // Renomeei 'nomeInput' para 'nomePFInput' para clareza
-    const nomePFInput = document.getElementById('nome_pf'); 
-    const responsavelInput = document.getElementById('responsavel'); [cite: 27]
-    const cpfInput = document.getElementById('cpf'); [cite: 27]
-    const cnpjInput = document.getElementById('cnpj'); [cite: 28]
-    const dataNascimentoInput = document.getElementById('data_nascimento');
+    const namePFInput = document.getElementById('name_pf'); 
+    const responsavelInput = document.getElementById('responsavel');
+    const cpfInput = document.getElementById('cpf');
+    const cnpjInput = document.getElementById('cnpj');
+    const birthdateInput = document.getElementById('birthdate');
     const nomeLojaInput = document.getElementById('nome_loja');
-    
-    // Valores originais (Apenas para garantir que o jinja/bottle renderize no campo certo no load)
+
+    // CORRIGIDO: Adicionado 'if user' em todas as propriedades para evitar erro de renderização do Bottle
     const originalPFValues = {
-        nome: "{{user.nome if user and user.user_type == 'PF' else ''}}",
+        name: "{{user.name if user and user.user_type == 'PF' else ''}}",
         cpf_cnpj: "{{user.cpf_cnpj if user and user.user_type == 'PF' else ''}}",
-        data_nascimento: "{{user.data_nascimento if user and user.user_type == 'PF' else ''}}"
+        birthdate: "{{user.birthdate if user and user.user_type == 'PF' else ''}}"
     };
     const originalPJValues = {
-        responsavel: "{{user.nome if user and user.user_type == 'PJ' else ''}}",
+        responsavel: "{{user.name if user and user.user_type == 'PJ' else ''}}",
         nome_loja: "{{user.nome_loja if user and user.user_type == 'PJ' else ''}}",
         cpf_cnpj: "{{user.cpf_cnpj if user and user.user_type == 'PJ' else ''}}"
     };
@@ -120,9 +134,9 @@
             pjFields.style.display = 'none';
 
             // Define 'required' para campos PF
-            if(nomePFInput) nomePFInput.setAttribute('required', 'required');
+            if(namePFInput) namePFInput.setAttribute('required', 'required');
             if(cpfInput) cpfInput.setAttribute('required', 'required');
-            if(dataNascimentoInput) dataNascimentoInput.setAttribute('required', 'required');
+            if(birthdateInput) birthdateInput.setAttribute('required', 'required');
             
             // Limpa valores PJ para evitar envio de dados duplicados/incorretos no POST
             if(responsavelInput) responsavelInput.value = '';
@@ -130,9 +144,9 @@
             if(cnpjInput) cnpjInput.value = '';
 
             // Restaura valores PF (útil em edição)
-            if(nomePFInput) nomePFInput.value = originalPFValues.nome;
+            if(namePFInput) namePFInput.value = originalPFValues.name;
             if(cpfInput) cpfInput.value = originalPFValues.cpf_cnpj;
-            if(dataNascimentoInput) dataNascimentoInput.value = originalPFValues.data_nascimento;
+            if(birthdateInput) birthdateInput.value = originalPFValues.birthdate;
 
         } else if (userType === 'PJ') {
             pfFields.style.display = 'none';
@@ -144,9 +158,9 @@
             if(cnpjInput) cnpjInput.setAttribute('required', 'required');
 
             // Limpa valores PF para evitar envio de dados duplicados/incorretos no POST
-            if(nomePFInput) nomePFInput.value = '';
+            if(namePFInput) namePFInput.value = '';
             if(cpfInput) cpfInput.value = '';
-            if(dataNascimentoInput) dataNascimentoInput.value = '';
+            if(birthdateInput) birthdateInput.value = '';
 
             // Restaura valores PJ (útil em edição)
             if(responsavelInput) responsavelInput.value = originalPJValues.responsavel;
@@ -154,7 +168,7 @@
             if(cnpjInput) cnpjInput.value = originalPJValues.cpf_cnpj;
             
         } else {
-            // Caso 'Selecione...'
+            // Caso 'Selecione...' (Estado Inicial)
             pfFields.style.display = 'none';
             pjFields.style.display = 'none';
         }
@@ -166,7 +180,7 @@
             toggleFields(e.target.value);
         });
         
-        // Aplica o estado inicial, se já houver um valor
+        // Aplica o estado inicial, que é 'Selecione...'
         toggleFields(userTypeSelect.value);
     }
     
