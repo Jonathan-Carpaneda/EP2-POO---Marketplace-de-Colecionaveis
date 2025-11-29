@@ -18,10 +18,14 @@ class UserService:
         email = request.forms.get('email')
         password = request.forms.get('password')
         birthdate = request.forms.get('birthdate')
+        user_type = request.forms.get('user_type')
 
         #caso não tenha prenchido campo de senha e email
         if not password or not email:
             return False, "Email e Senha são obrigatórios."
+        
+        if not user_type:
+            return False, "É obrigatório selecionar o Tipo de Cadastro (PF ou PJ)."
 
         user = User(id=new_id, name=name, email=email, password=password, birthdate=birthdate)
         self.user_model.add_user(user)
