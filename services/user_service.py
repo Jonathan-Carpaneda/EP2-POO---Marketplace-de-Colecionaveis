@@ -16,10 +16,22 @@ class UserService:
         new_id = last_id + 1
         name = request.forms.get('name')
         email = request.forms.get('email')
+        password = request.forms.get('password')
         birthdate = request.forms.get('birthdate')
 
-        user = User(id=new_id, name=name, email=email, birthdate=birthdate)
+        #caso não tenha prenchido campo de senha e email
+        if not password or not email:
+            return False, "Email e Senha são obrigatórios."
+
+        user = User(id=new_id, name=name, email=email, password=password, birthdate=birthdate)
         self.user_model.add_user(user)
+        return True, "Usuário cadastrado com sucesso!"
+    
+    def autenticate(self, email, password):
+        user = self.user_model.get_all(email)
+        if user and user.password == password:
+            return user
+        return None
 
 
     def get_by_id(self, user_id):
