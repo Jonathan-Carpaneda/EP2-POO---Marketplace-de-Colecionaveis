@@ -1,18 +1,18 @@
 from bottle import request
-from models.produto import ProductModel, Product
+from models.produto import produtoModel, produto
 
-class ProductService:
+class produtoService:
     def __init__(self):
-        self.product_model = ProductModel()
+        self.produto_model = produtoModel()
 
 
     def get_all(self):
-        return self.product_model.get_all()
+        return self.produto_model.get_all()
 
 
     def save(self):
         # Lógica para gerar o novo ID
-        last_id = max([p.id for p in self.product_model.get_all()], default=0)
+        last_id = max([p.id for p in self.produto_model.get_all()], default=0)
         new_id = last_id + 1
 
         # Coleta de dados do formulário
@@ -30,7 +30,7 @@ class ProductService:
             return False, "Nome, Preço e Quantidade em Estoque são obrigatórios."
 
         # Cria a instância do Produto
-        product = Product(
+        produto = produto(
             id=new_id, 
             name=name, 
             description=description, 
@@ -38,15 +38,15 @@ class ProductService:
             stock_quantity=stock_quantity
         )
         
-        self.product_model.add_product(product)
+        self.produto_model.add_produto(produto)
         return True, "Produto cadastrado com sucesso!"
     
 
-    def get_by_id(self, product_id):
-        return self.product_model.get_by_id(product_id)
+    def get_by_id(self, produto_id):
+        return self.produto_model.get_by_id(produto_id)
 
 
-    def edit_product(self, product: Product):
+    def edit_produto(self, produto: produto):
         # Coleta de dados atualizados
         name = request.forms.get('name')
         description = request.forms.get('description')
@@ -59,19 +59,19 @@ class ProductService:
             return False, "Preço e Quantidade devem ser números válidos."
 
         # Atualiza o objeto Produto com os novos dados
-        product.name = name
-        product.description = description
-        product.price = price
-        product.stock_quantity = stock_quantity
+        produto.name = name
+        produto.description = description
+        produto.price = price
+        produto.stock_quantity = stock_quantity
 
-        self.product_model.update_product(product)
+        self.produto_model.update_produto(produto)
         return True, "Produto editado com sucesso!"
 
 
-    def delete_product(self, product_id):
-        self.product_model.delete_product(product_id)
+    def delete_produto(self, produto_id):
+        self.produto_model.delete_produto(produto_id)
 
-    def search_products(self, name_query: str = None, price_min: float = None, price_max: float = None):
+    def search_produtos(self, name_query: str = None, price_min: float = None, price_max: float = None):
        
         # Limpar strings e converter preços
         if name_query:
@@ -79,4 +79,4 @@ class ProductService:
             name_query = name_query.strip().lower()
         
         # O Model cuidará da lógica de filtragem, o Service apenas repassa os parâmetros
-        return self.product_model.search(name_query, price_min, price_max)
+        return self.produto_model.search(name_query, price_min, price_max)

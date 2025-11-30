@@ -7,7 +7,7 @@ from typing import List
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 @dataclass
-class Product:
+class produto:
     id: int
     name: str
     description: str
@@ -20,82 +20,82 @@ class Product:
 
     @classmethod
     def from_dict(cls, data):
-        # Cria uma instância Product a partir de um dicionário
+        # Cria uma instância produto a partir de um dicionário
         return cls(**data)
 
 
-class ProductModel:
-    FILE_PATH = os.path.join(DATA_DIR, 'products.json')
+class produtoModel:
+    FILE_PATH = os.path.join(DATA_DIR, 'produtos.json')
 
     def __init__(self):
-        self.products = self._load()
+        self.produtos = self._load()
 
 
-    def _load(self) -> List[Product]:
+    def _load(self) -> List[produto]:
         if not os.path.exists(self.FILE_PATH):
             return []
         with open(self.FILE_PATH, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            # Instancia objetos Product a partir dos dados do JSON
-            return [Product.from_dict(item) for item in data]
+            # Instancia objetos produto a partir dos dados do JSON
+            return [produto.from_dict(item) for item in data]
 
 
     def _save(self):
         with open(self.FILE_PATH, 'w', encoding='utf-8') as f:
             # Salva a lista de produtos convertida para dicionário
-            json.dump([p.to_dict() for p in self.products], f, indent=4, ensure_ascii=False)
+            json.dump([p.to_dict() for p in self.produtos], f, indent=4, ensure_ascii=False)
 
 
-    def get_all(self) -> List[Product]:
-        return self.products
+    def get_all(self) -> List[produto]:
+        return self.produtos
 
 
-    def get_by_id(self, product_id: int) -> Product | None:
-        return next((p for p in self.products if p.id == product_id), None)
+    def get_by_id(self, produto_id: int) -> produto | None:
+        return next((p for p in self.produtos if p.id == produto_id), None)
 
 
-    def add_product(self, product: Product):
-        self.products.append(product)
+    def add_produto(self, produto: produto):
+        self.produtos.append(produto)
         self._save()
 
 
-    def update_product(self, updated_product: Product):
-        for i, product in enumerate(self.products):
-            if product.id == updated_product.id:
-                self.products[i] = updated_product
+    def update_produto(self, updated_produto: produto):
+        for i, produto in enumerate(self.produtos):
+            if produto.id == updated_produto.id:
+                self.produtos[i] = updated_produto
                 self._save()
                 return # Sai assim que encontrar e atualizar
 
 
-    def delete_product(self, product_id: int):
-        self.products = [p for p in self.products if p.id != product_id]
+    def delete_produto(self, produto_id: int):
+        self.produtos = [p for p in self.produtos if p.id != produto_id]
         self._save()
 
-    def search(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[Product]:
+    def search(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[produto]:
        
         # Começa com todos os produtos
-        filtered_products = self.products
+        filtered_produtos = self.produtos
 
         # 1. Filtro por Nome
         if name_query:
             # Filtra onde o nome do produto (em minúsculas) contém a query
-            filtered_products = [
-                p for p in filtered_products 
+            filtered_produtos = [
+                p for p in filtered_produtos 
                 if name_query in p.name.lower()
             ]
 
         # 2. Filtro por Preço Mínimo
         if price_min is not None:
-            filtered_products = [
-                p for p in filtered_products 
+            filtered_produtos = [
+                p for p in filtered_produtos 
                 if p.price >= price_min
             ]
 
         # 3. Filtro por Preço Máximo
         if price_max is not None:
-            filtered_products = [
-                p for p in filtered_products 
+            filtered_produtos = [
+                p for p in filtered_produtos 
                 if p.price <= price_max
             ]
 
-        return filtered_products
+        return filtered_produtos
