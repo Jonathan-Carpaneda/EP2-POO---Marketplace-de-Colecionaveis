@@ -25,10 +25,10 @@ class produto:
 
 
 class produtoModel:
-    FILE_PATH = os.path.join(DATA_DIR, 'produtos.json')
+    FILE_PATH = os.path.join(DATA_DIR, 'produto.json')
 
     def __init__(self):
-        self.produtos = self._load()
+        self.produto = self._load()
 
 
     def _load(self) -> List[produto]:
@@ -43,59 +43,59 @@ class produtoModel:
     def _save(self):
         with open(self.FILE_PATH, 'w', encoding='utf-8') as f:
             
-            json.dump([p.to_dict() for p in self.produtos], f, indent=4, ensure_ascii=False)
+            json.dump([p.to_dict() for p in self.produto], f, indent=4, ensure_ascii=False)
 
 
     def get_all(self) -> List[produto]:
-        return self.produtos
+        return self.produto
 
 
     def get_by_id(self, produto_id: int) -> produto | None:
-        return next((p for p in self.produtos if p.id == produto_id), None)
+        return next((p for p in self.produto if p.id == produto_id), None)
 
 
     def add_produto(self, produto: produto):
-        self.produtos.append(produto)
+        self.produto.append(produto)
         self._save()
 
 
     def update_produto(self, updated_produto: produto):
-        for i, produto in enumerate(self.produtos):
+        for i, produto in enumerate(self.produto):
             if produto.id == updated_produto.id:
-                self.produtos[i] = updated_produto
+                self.produto[i] = updated_produto
                 self._save()
                 return 
 
 
     def delete_produto(self, produto_id: int):
-        self.produtos = [p for p in self.produtos if p.id != produto_id]
+        self.produto = [p for p in self.produto if p.id != produto_id]
         self._save()
 
     def search(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[produto]:
        
        
-        filtered_produtos = self.produtos
+        filtered_produto = self.produto
 
         
         if name_query:
             
-            filtered_produtos = [
-                p for p in filtered_produtos 
+            filtered_produto = [
+                p for p in filtered_produto 
                 if name_query in p.name.lower()
             ]
 
         
         if price_min is not None:
-            filtered_produtos = [
-                p for p in filtered_produtos 
+            filtered_produto = [
+                p for p in filtered_produto 
                 if p.price >= price_min
             ]
 
        
         if price_max is not None:
-            filtered_produtos = [
-                p for p in filtered_produtos 
+            filtered_produto = [
+                p for p in filtered_produto 
                 if p.price <= price_max
             ]
 
-        return filtered_produtos
+        return filtered_produto

@@ -71,7 +71,7 @@ class produtoService:
     def delete_produto(self, produto_id):
         self.produto_model.delete_produto(produto_id)
 
-    def search_produtos(self, name_query: str = None, price_min: float = None, price_max: float = None):
+    def search_produto(self, name_query: str = None, price_min: float = None, price_max: float = None):
        
         
         if name_query:
