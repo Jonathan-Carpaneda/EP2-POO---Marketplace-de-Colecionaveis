@@ -1,5 +1,5 @@
 from bottle import request
-from models.product import ProductModel, Product
+from models.produto import ProductModel, Product
 
 class ProductService:
     def __init__(self):
@@ -70,3 +70,13 @@ class ProductService:
 
     def delete_product(self, product_id):
         self.product_model.delete_product(product_id)
+
+    def search_products(self, name_query: str = None, price_min: float = None, price_max: float = None):
+       
+        # Limpar strings e converter preços
+        if name_query:
+            # Converte para minúsculas para busca case-insensitive
+            name_query = name_query.strip().lower()
+        
+        # O Model cuidará da lógica de filtragem, o Service apenas repassa os parâmetros
+        return self.product_model.search(name_query, price_min, price_max)

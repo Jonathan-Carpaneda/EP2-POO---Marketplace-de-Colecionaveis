@@ -70,3 +70,32 @@ class ProductModel:
     def delete_product(self, product_id: int):
         self.products = [p for p in self.products if p.id != product_id]
         self._save()
+
+    def search(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[Product]:
+       
+        # Começa com todos os produtos
+        filtered_products = self.products
+
+        # 1. Filtro por Nome
+        if name_query:
+            # Filtra onde o nome do produto (em minúsculas) contém a query
+            filtered_products = [
+                p for p in filtered_products 
+                if name_query in p.name.lower()
+            ]
+
+        # 2. Filtro por Preço Mínimo
+        if price_min is not None:
+            filtered_products = [
+                p for p in filtered_products 
+                if p.price >= price_min
+            ]
+
+        # 3. Filtro por Preço Máximo
+        if price_max is not None:
+            filtered_products = [
+                p for p in filtered_products 
+                if p.price <= price_max
+            ]
+
+        return filtered_products
