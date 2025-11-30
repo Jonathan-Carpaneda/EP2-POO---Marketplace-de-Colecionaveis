@@ -38,7 +38,7 @@
         
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar Produto</button>
-            <a href="/produtos" class="btn-cancel">Voltar para a Lista</a>
+            <a href="/produto" class="btn-cancel">Voltar para a Lista</a>
         </div>
     </form>
 </section>
