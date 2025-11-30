@@ -1,0 +1,72 @@
+%rebase('layout', title='Gestão de Produtos')
+
+<section class="produto-section">
+    <div class="section-header">
+        <h1 class="section-title"><i class="fas fa-boxes"></i> Gestão de Produtos</h1>
+        <a href="/produtos/add" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Novo Produto
+        </a>
+    </div>
+
+    <div class="search-bar">
+        <form action="/produtos/search" method="GET" class="form-inline">
+            <input type="text" name="name" placeholder="Buscar por Nome..." value="{{search_query or ''}}">
+            <input type="number" name="min_price" placeholder="Preço Mínimo" step="0.01" value="{{'%.2f' % min_price if min_price else ''}}">
+            <input type="number" name="max_price" placeholder="Preço Máximo" step="0.01" value="{{'%.2f' % max_price if max_price else ''}}">
+            <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i> Buscar</button>
+            % if search_query or min_price or max_price:
+            <a href="/produtos" class="btn btn-secondary-outline">Limpar</a>
+            % end
+        </form>
+    </div>
+    
+    % if defined('error') and error:
+    <div class="alert alert-danger">{{error}}</div>
+    % end
+
+    <div class="table-container">
+        <table class="styled-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                % for p in produtos:
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.description[:50] + '...' if len(p.description) > 50 else p.description}}</td>
+                    <td>R$ {{'%.2f' % p.price}}</td>
+                    <td>
+                        % if p.stock_quantity == 0:
+                        <span class="tag-danger">Esgotado</span>
+                        % else:
+                        {{p.stock_quantity}}
+                        % end
+                    </td>
+                     <td class="actions">
+                         <a href="/produtos/edit/{{p.id}}" class="btn btn-sm btn-edit">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+
+                        <form action="/produtos/delete/{{p.id}}" method="post"
+                              onsubmit="return confirm('Tem certeza que deseja excluir o produto {{p.name}}?')">
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash-alt"></i> Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                % end
+            </tbody>
+        </table>
+    </div>
+</section>
