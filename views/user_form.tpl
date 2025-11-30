@@ -64,7 +64,7 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required 
                    value="{{user.email if user else ''}}"
-                   placeholder="seu.email@exemplo.com">
+                   placeholder="seu_email@exemplo.com">
         </div>
         
         {*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
