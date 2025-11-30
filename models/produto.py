@@ -15,12 +15,12 @@ class produto:
     stock_quantity: int
 
     def to_dict(self):
-        # Usa asdict do dataclass para facilitar a serialização
+       
         return asdict(self)
 
     @classmethod
     def from_dict(cls, data):
-        # Cria uma instância produto a partir de um dicionário
+        
         return cls(**data)
 
 
@@ -36,13 +36,13 @@ class produtoModel:
             return []
         with open(self.FILE_PATH, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            # Instancia objetos produto a partir dos dados do JSON
+            
             return [produto.from_dict(item) for item in data]
 
 
     def _save(self):
         with open(self.FILE_PATH, 'w', encoding='utf-8') as f:
-            # Salva a lista de produtos convertida para dicionário
+            
             json.dump([p.to_dict() for p in self.produtos], f, indent=4, ensure_ascii=False)
 
 
@@ -64,7 +64,7 @@ class produtoModel:
             if produto.id == updated_produto.id:
                 self.produtos[i] = updated_produto
                 self._save()
-                return # Sai assim que encontrar e atualizar
+                return 
 
 
     def delete_produto(self, produto_id: int):
@@ -73,25 +73,25 @@ class produtoModel:
 
     def search(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[produto]:
        
-        # Começa com todos os produtos
+       
         filtered_produtos = self.produtos
 
-        # 1. Filtro por Nome
+        
         if name_query:
-            # Filtra onde o nome do produto (em minúsculas) contém a query
+            
             filtered_produtos = [
                 p for p in filtered_produtos 
                 if name_query in p.name.lower()
             ]
 
-        # 2. Filtro por Preço Mínimo
+        
         if price_min is not None:
             filtered_produtos = [
                 p for p in filtered_produtos 
                 if p.price >= price_min
             ]
 
-        # 3. Filtro por Preço Máximo
+       
         if price_max is not None:
             filtered_produtos = [
                 p for p in filtered_produtos 
