@@ -1,65 +1,65 @@
 from bottle import Bottle, request
 from .base_controller import BaseController
-from services.product_service import ProductService
+from services.produto_service import produtoService
 
-class ProductController(BaseController):
+class produtoController(BaseController):
     def __init__(self, app):
         super().__init__(app)
 
         self.setup_routes()
-        self.product_service = ProductService()
+        self.produto_service = produtoService()
 
 
     # Rotas Produto
     def setup_routes(self):
-        self.app.route('/products', method='GET', callback=self.list_products)
-        self.app.route('/products/add', method=['GET', 'POST'], callback=self.add_product)
-        self.app.route('/products/edit/<product_id:int>', method=['GET', 'POST'], callback=self.edit_product)
-        self.app.route('/products/delete/<product_id:int>', method='POST', callback=self.delete_product)
+        self.app.route('/produtos', method='GET', callback=self.list_produtos)
+        self.app.route('/produtos/add', method=['GET', 'POST'], callback=self.add_produto)
+        self.app.route('/produtos/edit/<produto_id:int>', method=['GET', 'POST'], callback=self.edit_produto)
+        self.app.route('/produtos/delete/<produto_id:int>', method='POST', callback=self.delete_produto)
 
 
-    def list_products(self):
-        products = self.product_service.get_all()
-        # Assume que você tem um template chamado 'products'
-        return self.render('products', products=products)
+    def list_produtos(self):
+        produtos = self.produto_service.get_all()
+        # Assume que você tem um template chamado 'produtos'
+        return self.render('produtos', produtos=produtos)
 
 
-    def add_product(self):
+    def add_produto(self):
         if request.method == 'GET':
-            # Assume que você tem um template chamado 'product_form'
-            return self.render('product_form', product=None, action="/products/add")
+            # Assume que você tem um template chamado 'produto_form'
+            return self.render('produto_form', produto=None, action="/produtos/add")
         else:
             # POST - salvar produto
-            success, message = self.product_service.save()
+            success, message = self.produto_service.save()
             if success:
-                self.redirect('/products')
+                self.redirect('/produtos')
             else:
                 # Se houver erro, re-renderiza o formulário com a mensagem de erro
-                return self.render('product_form', product=None, action="/products/add", error=message)
+                return self.render('produto_form', produto=None, action="/produtos/add", error=message)
 
 
-    def edit_product(self, product_id):
-        product = self.product_service.get_by_id(product_id)
-        if not product:
+    def edit_produto(self, produto_id):
+        produto = self.produto_service.get_by_id(produto_id)
+        if not produto:
             return "Produto não encontrado"
 
         if request.method == 'GET':
-            return self.render('product_form', product=product, action=f"/products/edit/{product_id}")
+            return self.render('produto_form', produto=produto, action=f"/produtos/edit/{produto_id}")
         else:
             # POST - salvar edição
-            success, message = self.product_service.edit_product(product)
+            success, message = self.produto_service.edit_produto(produto)
             if success:
-                self.redirect('/products')
+                self.redirect('/produtos')
             else:
                 # Se houver erro, re-renderiza o formulário com a mensagem de erro
-                return self.render('product_form', product=product, action=f"/products/edit/{product_id}", error=message)
+                return self.render('produto_form', produto=produto, action=f"/produtos/edit/{produto_id}", error=message)
 
 
-    def delete_product(self, product_id):
-        self.product_service.delete_product(product_id)
-        self.redirect('/products')
+    def delete_produto(self, produto_id):
+        self.produto_service.delete_produto(produto_id)
+        self.redirect('/produtos')
 
 
 # O ponto de entrada para o Bottle
-product_routes = Bottle()
-product_controller = ProductController(product_routes)
+produto_routes = Bottle()
+produto_controller = produtoController(produto_routes)
