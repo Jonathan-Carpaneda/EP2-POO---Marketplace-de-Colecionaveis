@@ -64,23 +64,8 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required 
                    value="{{user.email if user else ''}}"
-                   placeholder="seu_email@exemplo.com">
+                   placeholder="seu.email@exemplo.com">
         </div>
-        
-        {*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
-LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
-LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
-LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}
-
-        <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        {*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
-LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
-LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}{*AQUI ESTÁ A SENHA BÁSICA QUE IMPLEMENTEI PEDRO PAULO ALMEIDA ARAÚJO. LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO
-LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO, LEIA ISSO*}
         
         <div class="form-group">
             <label for="password">Senha:</label>
