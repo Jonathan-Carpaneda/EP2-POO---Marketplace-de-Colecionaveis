@@ -64,7 +64,7 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required 
                    value="{{user.email if user else ''}}"
-                   placeholder="seu.email@exemplo.com">
+                   placeholder="seu_email@exemplo.com">
         </div>
         
         <div class="form-group">
