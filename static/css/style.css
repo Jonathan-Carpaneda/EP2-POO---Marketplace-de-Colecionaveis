@@ -28,7 +28,7 @@ h1 {
 }
 
 /* ---------------------------------------------------- */
-/* 2. HEADER E NAVBAR */
+/* 2. HEADER E NAVBAR (MODIFICADO PARA ESTILO BOTÃO) */
 /* ---------------------------------------------------- */
 
 .navbar {
@@ -40,24 +40,40 @@ h1 {
     border-bottom: 3px solid #e94560;
 }
 
-.navbar a {
-    color: #e0e0e0;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-    transition: color 0.3s;
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
 }
 
-.navbar a:hover {
-    color: #ffc947; /* Amarelo/Laranja para hover */
+.nav-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    
+    background-color: transparent; 
+    padding: 8px 15px; 
+    border: 2px solid transparent;
+    border-radius: 5px; 
+    display: inline-block;
 }
+
+.nav-links a:hover {
+    color: #ffc947; 
+    border-color: #e94560; 
+    background-color: #16213e; 
+}
+
 
 /* Texto do Logo */
 .logo-text {
     font-family: 'Audiowide', cursive;
     font-size: 1.8rem;
     font-weight: normal; 
-    color: #ffc947; /* Cor de destaque para o logo */
+    color: #ffc947; 
     text-decoration: none;
     letter-spacing: 2px;
 }
