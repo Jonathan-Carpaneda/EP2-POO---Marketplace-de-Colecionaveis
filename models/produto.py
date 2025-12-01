@@ -14,6 +14,7 @@ class Produto:
     price: float
     stock_quantity: int
     owner_id: str = None
+    image_url: str = None 
 
     def __post_init__(self):
         if self.id is None:
@@ -32,7 +33,8 @@ class Produto:
             description=data['description'],
             price=data['price'],
             stock_quantity=data['stock_quantity'],
-            owner_id=data.get('owner_id')
+            owner_id=data.get('owner_id'), 
+            image_url=data.get('image_url') 
         )
 
 class ProdutoModel:

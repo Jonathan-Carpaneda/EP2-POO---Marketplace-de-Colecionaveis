@@ -24,7 +24,8 @@ class ProdutoService:
             description=produto_data['description'],
             price=produto_data['price'],
             stock_quantity=produto_data['stock_quantity'],
-            owner_id=owner_id 
+            owner_id=owner_id, 
+            image_url=produto_data.get('image_url') 
         )
         
         self.model.add_produto(new_produto)
@@ -42,7 +43,8 @@ class ProdutoService:
             description=produto_data['description'],
             price=produto_data['price'],
             stock_quantity=produto_data['stock_quantity'],
-            owner_id=existing_produto.owner_id
+            owner_id=existing_produto.owner_id,
+            image_url=produto_data.get('image_url') 
         )
         
         self.model.update_produto(updated_produto)
