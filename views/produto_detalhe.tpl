@@ -56,6 +56,15 @@
 
             <div class="card detail-card mt-4">
                 <div class="card-header bg-secondary text-white">
+                    Descrição
+                </div>
+                <div class="card-body">
+                    <p class="description-text">{{produto.description}}</p>
+                </div>
+            </div>
+
+            <div class="card detail-card mt-4">
+                <div class="card-header bg-secondary text-white">
                     Preço & Estoque
                 </div>
                 <div class="card-body">
@@ -80,7 +89,7 @@
                     </a>
                     
                     <form action="/produtos/delete/{{produto.id}}" method="post" style="display:inline;"
-                    onsubmit="return confirm('Tem certeza que deseja excluir o produto {{produto.name}}?')">
+                          onsubmit="return confirm('Tem certeza que deseja excluir o produto {{produto.name}}?')">
                         <button type="submit" class="btn btn-danger btn-lg">
                             <i class="fas fa-trash-alt"></i> Excluir
                         </button>

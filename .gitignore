@@ -7,3 +7,5 @@ __pycache__/
 .git/
 venv/
 *.json
+static/images/
+static/images/produtos
