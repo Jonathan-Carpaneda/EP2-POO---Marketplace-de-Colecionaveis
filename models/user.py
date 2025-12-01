@@ -6,17 +6,22 @@ from typing import List
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 class User:
-    def __init__(self, id, name, email, birthdate, password, user_type):
+    def __init__(self, id, name, email, birthdate, password, user_type, cpf, cnpj, shop_name, phone, address):
         self.id = id
         self.name = name
         self.email = email
         self.password = password
         self.birthdate = birthdate
         self.user_type = user_type
+        self.cpf = cpf
+        self.cnpj = cnpj
+        self.shop_name = shop_name
+        self.phone = phone
+        self.address = address
 
 
     def __repr__(self):
-        return (f"User(id={self.id}, name='{self.name}', email='{self.email}', passowrd='{self.password}' , type='{self.user_type}', ",
+        return (f"User(id={self.id}, name='{self.name}', email='{self.email}', password='{self.password}' , type='{self.user_type}', ",
                 f"birthdate='{self.birthdate}'")
 
 
@@ -25,9 +30,14 @@ class User:
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'passowrd': self.password,
+            'password': self.password,
             'birthdate': self.birthdate,
-            'user_type': self.user_type
+            'user_type': self.user_type,
+            'cpf': self.cpf,
+            'cnpj': self.cnpj,
+            'shop_name': self.shop_name,
+            'phone': self.phone,
+            'address': self.address
         }
 
 
@@ -39,7 +49,12 @@ class User:
             email=data['email'],
             birthdate=data['birthdate'],
             user_type=data['user_type'],
-            password=data['password']
+            password=data.get('password', data.get('password')),
+            cpf=data.get('cpf'),
+            cnpj=data.get('cnpj'),
+            shop_name=data.get('shop_name'),
+            phone=data.get('phone'),
+            address=data.get('address')
         )
 
 

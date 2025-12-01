@@ -11,8 +11,8 @@
     <div class="search-bar">
         <form action="/produtos/search" method="GET" class="form-inline">
             <input type="text" name="name" placeholder="Buscar por Nome..." value="{{search_query or ''}}">
-           <input type="number" name="min_price" placeholder="Preço Mínimo" step="0.01" value="{{'%.2f' % min_price if defined('min_price') and min_price else ''}}">
-            <input type="number" name="max_price" placeholder="Preço Máximo" step="0.01" value="{{'%.2f' % max_price if defined('max_price') and max_price else ''}}">
+           <input type="number" name="min_price" placeholder="Preço Mínimo" step="0.01" min="0" value="{{'%.2f' % min_price if defined('min_price') and min_price else ''}}">
+            <input type="number" name="max_price" placeholder="Preço Máximo" step="0.01" min="0" value="{{'%.2f' % max_price if defined('max_price') and max_price else ''}}">
             
             <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i> Buscar</button>
             % if defined('search_query') or defined('min_price') or defined('max_price'):
