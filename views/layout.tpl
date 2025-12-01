@@ -15,8 +15,8 @@
             </div>
             
             <ul class="nav-links">
-                <li><a href="/items">Ver Itens</a></li>
-                <li><a href="/items/add">Vender Item</a></li>
+                <li><a href="/produtos">Ver Produtos</a></li>
+                <li><a href="/produtos/add">Vender Produtos</a></li>
                 <li><a href="/users">Usuários</a></li>
             </ul>
         </nav>
