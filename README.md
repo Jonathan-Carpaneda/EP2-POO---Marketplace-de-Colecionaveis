@@ -89,7 +89,6 @@ venv\\Scripts\\activate     # Windows
 pip install -r requirements.txt
 ```
 
-3. crie uma pasta chamada `bin`
 
 4. Rode a aplicação:
 ```bash
