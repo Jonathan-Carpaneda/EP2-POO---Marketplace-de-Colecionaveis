@@ -84,6 +84,7 @@ class UserModel:
 
 
     def get_by_id(self, user_id: int):
+        self.users = self._load()
         return next((u for u in self.users if u.id == user_id), None)
 
 

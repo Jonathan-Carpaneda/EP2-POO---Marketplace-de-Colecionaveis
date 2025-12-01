@@ -28,7 +28,11 @@ class UserService:
         return self.user_model.get_all()
 
     def get_by_id(self, user_id):
-        return self.user_model.get_by_id(user_id)
+        try:
+            id_numero = int(user_id)
+            return self.user_model.get_by_id(id_numero)
+        except (ValueError, TypeError):
+            return None
 
     def save(self):
         user_type = request.forms.get('user_type')

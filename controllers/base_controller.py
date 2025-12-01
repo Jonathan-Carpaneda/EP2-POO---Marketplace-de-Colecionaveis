@@ -28,13 +28,30 @@ class BaseController:
 
     def get_current_user(self):
         user_id = request.get_cookie("user_id", secret='minha_chave_secreta')
+
+        print(f"[DEBUG BASE] Cookie lido: {user_id}")
+
         if user_id:
-            return self.user_service.get_by_id(user_id)
+            user = self.user_service.get_by_id(user_id)
+            
+            if user:
+                print(f"[DEBUG BASE] Usuário validado: {user.name} ({user.user_type})")
+            else:
+                print(f"[DEBUG BASE] Cookie existe mas usuário não encontrado no JSON.")
+            
+            return user
+        
         return None
 
     def require_admin(self):
         """Bloqueia a execução se o usuário não for ADMIN"""
         user = self.get_current_user()
+        if user:
+            print(f"[DEBUG SECURITY] Verificando acesso para: {user.name} ({user.user_type})")
+            if user.user_type != 'ADMIN':
+                print("[DEBUG SECURITY] BLOQUEADO: Usuário existe mas não é ADMIN.")
+        else:
+            print("[DEBUG SECURITY] BLOQUEADO: Usuário não logado (None).")
         if not user or user.user_type != 'ADMIN':
             bottle_redirect('/login')
 
