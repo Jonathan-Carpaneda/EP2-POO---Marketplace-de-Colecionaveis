@@ -17,7 +17,6 @@
             
             <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i> Buscar</button>
             % if defined('search_query') or defined('min_price') or defined('max_price'):
- 
             <a href="/produtos" class="btn btn-secondary-outline">Limpar</a>
             % end
         </form>
@@ -30,72 +29,56 @@
     <div class="table-container">
         <table class="styled-table">
             <thead>
-            
-           <tr>
-                    <th>ID</th>
+                <tr>
                     <th>Nome</th>
                     <th>Descrição</th>
                     <th>Preço</th>
-        
-           <th>Estoque</th>
+                    <th>Estoque</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 % for p in produtos:
                 <tr>
- 
-                    <td>{{p.id}}</td>
                     <td>{{p.name}}</td>
                     <td>{{p.description[:50] + '...' if len(p.description) > 50 else p.description}}</td>
-               
                     <td>R$ {{'%.2f' % p.price}}</td>
-          
-           <td>
+                    <td>
                         % if p.stock_quantity == 0:
                         <span class="tag-danger">Esgotado</span>
-                  
-                       % else:
-            
-                         {{p.stock_quantity}}
+                        % else:
+                          {{p.stock_quantity}}
                         % end
                     </td>
-                     <td class="actions">
-                        <a href="/produtos/view/{{p.id}}" class="btn btn-sm btn-info">
+                    <td class="actions">
+                        <a href="/produtos/view/{{p.id}}" class="btn btn-sm btn-info" style="background-color: #17a2b8; color: white;">
                             <i class="fas fa-eye"></i> Ver Detalhes
                         </a>
  
-                     
-           <a href="/produtos/edit/{{p.id}}" class="btn btn-sm btn-edit">
+                        <a href="/produtos/edit/{{p.id}}" class="btn btn-sm btn-edit">
                             <i class="fas fa-edit"></i> Editar
                         </a>
 
-          
-               <form action="/produtos/delete/{{p.id}}" method="post"
-           
-                   onsubmit="return confirm('Tem certeza que deseja excluir o produto {{p.name}}?')">
+                        <form action="/produtos/delete/{{p.id}}" method="post"
+                              onsubmit="return confirm('Tem certeza que deseja excluir o produto {{p.name}}?')">
                             <button type="submit" class="btn btn-sm btn-danger">
-              
-                   <i class="fas fa-trash-alt"></i> Excluir
-      
-                       </button>
+                                <i class="fas fa-trash-alt"></i> Excluir
+                            </button>
                         </form>
                     </td>
-      
-           </tr>
+                </tr>
                 % end
- 
             </tbody>
-        % if not produtos:
-        <tfoot>
-            <tr>
-                <td colspan="6" style="text-align: center;
- color: #ffc947; padding: 20px; background-color: #16213e;">
-                    Nenhum produto encontrado.
-                </td>
-            </tr>
-        </tfoot>
-        % end
+            
+            % if not produtos:
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #ffc947; padding: 20px; background-color: #16213e;">
+                        Nenhum produto encontrado.
+                    </td>
+                </tr>
+            </tfoot>
+            % end
         </table>
     </div>
 </section>
