@@ -13,15 +13,19 @@
             <div class="logo">
                 <a href="/" class="logo-text"> RELICÁRIO DIGITAL </a>
             </div>
-            
+        
             <ul class="nav-links">
+                <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle"><i class="fas fa-bars"></i> Menu</a>
                     <ul class="dropdown-menu">
+                    
                         <li><a href="/">Home </a></li>
                         <li><a href="/produtos">Gestão de Produtos</a></li>
                         <li><a href="/produtos/add">Novo Produto</a></li>
                         <li><a href="/users">Gestão de Usuários</a></li>
+              
                     </ul>
                 </li>
             </ul>
