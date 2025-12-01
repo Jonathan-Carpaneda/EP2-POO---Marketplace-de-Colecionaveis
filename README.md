@@ -37,21 +37,31 @@ poo-python-bottle-template/
 Contém as classes responsáveis por lidar com as rotas da aplicação. Exemplos:
 - `user_controller.py`: rotas para listagem, adição, edição e remoção de usuários.
 - `base_controller.py`: classe base com utilitários comuns.
+- `produto_controller.py`: rotas para listagem, adição, edição e remoção de produtos.
+- `auth_controller.py`: rotas para a autenticação, id e segurança de produtos e usuários
 
 ### `models/`
 Define as classes que representam os dados da aplicação. Exemplo:
 - `user.py`: classe `User`, com atributos como `id`, `name`, `email`, etc.
+- `produto.py`: classe `produto`, com atributos como `id`, `nome` , `preco`, etc.
 
 ### `services/`
 Responsável por salvar, carregar e manipular dados usando arquivos JSON. Exemplo:
 - `user_service.py`: contém métodos como `get_all`, `add_user`, `delete_user`.
+- `produto_service.py`: contém métodos como `get_all`, `add_produto`, `delete_produto`.
 
 ### `views/`
 Contém os arquivos `.tpl` utilizados pelo Bottle como páginas HTML:
 - `layout.tpl`: estrutura base com navegação e bloco `content`.
 - `users.tpl`: lista os usuários.
+- `home.tpl`: página inicial.
+- `produto_lista.tpl`: lista os produtos.
+- `produto_detalhe.tpl`: página de visualização de um produto individual.
+- `login.tpl`: página de login.
+- `itens.tpl`: estrutura base dos produtos.
+- `user_profile.tpl`: página do perfil.
 - `user_form.tpl`: formulário para adicionar/editar usuário.
-
+- `produto_cadastro.tpl`: formulário para adicionar/editar produto.
 ### `static/`
 Arquivos estáticos como:
 - `css/style.css`: estilos básicos.
@@ -65,25 +75,26 @@ Armazena os arquivos `.json` que simulam o banco de dados:
 ---
 
 ## ▶️ Como Executar
+1. crie uma pasta chamada `bin`
 
-1. Crie o ambiente virtual na pasta fora do seu projeto:
+2. Crie o ambiente virtual na pasta fora do seu projeto:
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\\Scripts\\activate     # Windows
 ```
 
-2. Entre dentro do seu projeto criado a partir do template e instale as dependências:
+3. Entre dentro do seu projeto criado a partir do template e instale as dependências:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Rode a aplicação:
+4. Rode a aplicação:
 ```bash
 python main.py
 ```
 
-4. Accese sua aplicação no navegador em: [http://localhost:8080](http://localhost:8080)
+5. Accese sua aplicação no navegador em: [http://localhost:8080](http://localhost:8080)
 
 ---
 
@@ -100,6 +111,10 @@ Para adicionar novos modelos (ex: Atividades):
 
 ---
 
+## Dificuldades e dúvidas
+A maior dificuldade enfrentada nesse trabalho foi o manejo do tempo, tendo em vista que o grupo começou os trabalhos tarde e isso atrapalhou no desenvolvimento como por exemplo na implementação de um cadastro e armazenamento de imagens do produto.
+
+---
 ## 🧠 Autor e Licença
 Projeto desenvolvido como template didático para disciplinas de Programação Orientada a Objetos, baseado no [BMVC](https://github.com/hgmachine/bmvc_start_from_this).
 Você pode reutilizar, modificar e compartilhar livremente.
