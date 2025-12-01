@@ -26,15 +26,14 @@
         
         <div class="form-group">
             <label for="price">Preço (R$):</label>
-            <input type="number" id="price" name="price" required step="0.01"
-                   value="{{'%.2f' % produto.price if produto 
- and produto.price is not None else ''}}"
+            <input type="number" id="price" name="price" required step="0.01" min="0.00"
+                   value="{{'%.2f' % produto.price if produto and produto.price is not None else ''}}"
                    placeholder="99.99">
         </div>
 
         <div class="form-group">
             <label for="stock_quantity">Quantidade em Estoque:</label>
-            <input type="number" id="stock_quantity" name="stock_quantity" required 
+            <input type="number" id="stock_quantity" name="stock_quantity" min="0" required 
                    value="{{produto.stock_quantity if produto and produto.stock_quantity is not 
  None else ''}}"
                    placeholder="0">
