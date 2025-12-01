@@ -15,9 +15,15 @@
             </div>
             
             <ul class="nav-links">
-                <li><a href="/produtos">Ver Produtos</a></li>
-                <li><a href="/produtos/add">Vender Produtos</a></li>
-                <li><a href="/users">Usuários</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"><i class="fas fa-bars"></i> Menu</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/">Home </a></li>
+                        <li><a href="/produtos">Gestão de Produtos</a></li>
+                        <li><a href="/produtos/add">Novo Produto</a></li>
+                        <li><a href="/users">Gestão de Usuários</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -29,5 +35,6 @@
     <footer>
         <p>&copy; 2025 RelicárioDigital - Colecionáveis e Jogos</p>
     </footer>
+
 </body>
 </html>
