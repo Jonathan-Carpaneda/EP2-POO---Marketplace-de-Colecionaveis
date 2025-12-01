@@ -15,16 +15,43 @@
             </div>
         
             <ul class="nav-links">
-                <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                
+                % if defined('current_user') and current_user:
+                    <li>
+                        <a href="/profile" title="Ver meu perfil" style="color: #ffc947; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                            <i class="fas fa-user-circle"></i> 
+                            {{current_user.name.split()[0]}}
+                            
+                            % if current_user.user_type == 'ADMIN':
+                                <span style="background: #e94560; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.7em;">ADM</span>
+                            % end
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/logout" title="Sair do sistema">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </li>
+                % else:
+                    <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="/users/add"><i class="fas fa-user-plus"></i> Cadastrar</a></li>
+                % end
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle"><i class="fas fa-bars"></i> Menu</a>
                     <ul class="dropdown-menu">
                     
-                        <li><a href="/">Home </a></li>
-                        <li><a href="/produtos">Gestão de Produtos</a></li>
-                        <li><a href="/produtos/add">Novo Produto</a></li>
-                        <li><a href="/users">Gestão de Usuários</a></li>
+                        <li><a href="/">Home</a></li>
+
+                        % if defined('current_user') and current_user:
+                            <li><a href="/produtos">Gestão de Produtos</a></li>
+                            <li><a href="/produtos/add">Novo Produto</a></li>
+                        % end
+
+                        % if defined('current_user') and current_user and current_user.user_type == 'ADMIN':
+                            <li><a href="/users" style="color: #e94560; font-weight: bold;">Gestão de Usuários</a></li>
+                        % end
               
                     </ul>
                 </li>
