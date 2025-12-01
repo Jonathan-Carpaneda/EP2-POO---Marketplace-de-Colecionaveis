@@ -14,8 +14,7 @@ class produto:
     price: float
     stock_quantity: int
     owner_id: str = None
-    image_url: str = None # Campo que armazena o caminho do arquivo (URL estática)
-
+    image_url: str = None 
     def to_dict(self):
         return asdict(self)
 
@@ -33,7 +32,6 @@ class produto:
 
 
 class produtoModel:
-# ... (Restante do produtoModel permanece o mesmo)
     FILE_PATH = os.path.join(DATA_DIR, 'produto.json')
 
     def __init__(self):

@@ -5,9 +5,6 @@ from controllers.base_controller import BaseController
 from services.produto_service import produto_service 
 from models.produto import produto 
 
-
-# Define o diretório de upload (Ajuste o caminho se necessário)
-# Ele aponta para 'static/images/produtos' a partir da raiz do projeto.
 UPLOAD_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'images', 'produtos')
 
 
@@ -26,12 +23,12 @@ class ProdutoController(BaseController):
         self.app.route('/produtos', method='GET', callback=self.list_produtos)
         self.app.route('/produtos/search', method='GET', callback=self.search_produtos_route) 
         
-        # A ROTA DE ADD E EDIT PRECISA SER POST, PORÉM SE O FORMULÁRIO TIVER FILE O GET DO BOTTLE AINDA VAI FUNCIONAR MAS TEM QUE TOMAR CUIDADO.
+        
         self.app.route('/produtos/add', method=['GET', 'POST'], callback=self.add_produto)
         self.app.route('/produtos/edit/<produto_id:int>', method=['GET', 'POST'], callback=self.edit_produto)
         self.app.route('/produtos/delete/<produto_id:int>', method='POST', callback=self.delete_produto)
         
-        # ROTA CORRIGIDA/ADICIONADA: Agora chama o método view_produto_details
+       
         self.app.route('/produtos/view/<produto_id:int>', method='GET', callback=self.view_produto_details) 
 
     
@@ -40,22 +37,20 @@ class ProdutoController(BaseController):
         if not upload or not upload.filename:
             return None
         
-        # Garante que o diretório de upload existe
+        
         os.makedirs(UPLOAD_DIR, exist_ok=True)
         
-        # Extrai a extensão e gera um nome de arquivo seguro e único
+        
         name, ext = os.path.splitext(upload.filename)
-        # Verifica se é uma extensão de imagem aceita
+        
         if ext.lower() not in ('.png', '.jpg', '.jpeg', '.gif'):
             raise ValueError("Tipo de arquivo não permitido.")
             
         safe_filename = f"{uuid.uuid4()}{ext.lower()}"
         file_path = os.path.join(UPLOAD_DIR, safe_filename)
         
-        # Salva o arquivo no disco
         upload.save(file_path)
         
-        # Retorna o caminho público (URL estática)
         return f"/static/images/produtos/{safe_filename}"
 
 
@@ -113,7 +108,6 @@ class ProdutoController(BaseController):
                 if not current_user:
                     return self.redirect('/login')
                 
-                # NOVO: Recebe o arquivo e salva
                 uploaded_file = request.files.get('image_file')
                 image_url = self._save_uploaded_file(uploaded_file)
                 
@@ -122,7 +116,6 @@ class ProdutoController(BaseController):
                     'description': request.forms.get('description'),
                     'price': float(request.forms.get('price')),
                     'stock_quantity': int(request.forms.get('stock_quantity')),
-                    # Usa a URL gerada ou None se nenhum arquivo foi enviado
                     'image_url': image_url
                 }
                 
@@ -152,11 +145,9 @@ class ProdutoController(BaseController):
             return self.render('produto_cadastro', produto=produto_obj, action=f"/produtos/edit/{produto_id}")
         else:
             try:
-                # NOVO: Recebe o arquivo e salva
                 uploaded_file = request.files.get('image_file')
                 new_image_url = self._save_uploaded_file(uploaded_file)
                 
-                # Se um novo arquivo foi enviado, use a nova URL; caso contrário, mantenha a URL existente
                 final_image_url = new_image_url if new_image_url else produto_obj.image_url
                 
                 produto_data = {
@@ -164,7 +155,6 @@ class ProdutoController(BaseController):
                     'description': request.forms.get('description'),
                     'price': float(request.forms.get('price')),
                     'stock_quantity': int(request.forms.get('stock_quantity')),
-                    # Usa a URL final
                     'image_url': final_image_url
                 }
                 self.produto_service.update_produto(produto_id, produto_data)
