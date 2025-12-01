@@ -1,6 +1,8 @@
 from bottle import Bottle, request, redirect 
 from controllers.base_controller import BaseController
 from services.produto_service import produto_service 
+from models.produto import produto 
+
 
 class ProdutoController(BaseController): 
     def __init__(self, app):
@@ -10,6 +12,10 @@ class ProdutoController(BaseController):
 
 
     def setup_routes(self):
+        
+        self.app.route('/', method='GET', callback=self.home_index) 
+        
+        
         self.app.route('/produtos', method='GET', callback=self.list_produtos)
         self.app.route('/produtos/search', method='GET', callback=self.search_produtos_route) 
         self.app.route('/produtos/add', method=['GET', 'POST'], callback=self.add_produto)
@@ -17,7 +23,22 @@ class ProdutoController(BaseController):
         self.app.route('/produtos/delete/<produto_id:int>', method='POST', callback=self.delete_produto)
 
 
+    
+    def home_index(self):
+        """Exibe a página inicial do site (vitrine de produtos)."""
+       
+        produtos = self.produto_service.get_all_produtos()
+        
+        return self.render(
+            'home',
+            produtos=produtos,
+            search_query=None,
+            min_price=None,
+            max_price=None
+        )
+
     def list_produtos(self):
+       
         produtos = self.produto_service.get_all_produtos()
         
         return self.render(
@@ -39,6 +60,7 @@ class ProdutoController(BaseController):
         except ValueError:
             produtos = self.produto_service.get_all_produtos()
            
+            
             return self.render('produto_lista', produtos=produtos, error="Erro: Preço mínimo ou máximo inválido.", search_query=name_query, min_price=price_min, max_price=price_max)
 
         produtos = self.produto_service.search_produtos(name_query, price_min, price_max)
@@ -48,6 +70,7 @@ class ProdutoController(BaseController):
 
 
     def add_produto(self):
+        
         if request.method == 'GET':
             return self.render('produto_cadastro', produto=None, action="/produtos/add")
         else:
@@ -65,7 +88,7 @@ class ProdutoController(BaseController):
             except Exception as e:
                 error_message = f"Erro ao salvar produto. Verifique os dados: {e}"
                 
-                from models.produto import produto 
+                
                 temp_produto = produto(
                     id=0, 
                     name=request.forms.get('name', ''),
@@ -77,6 +100,7 @@ class ProdutoController(BaseController):
 
 
     def edit_produto(self, produto_id):
+        
         produto_obj = self.produto_service.get_produto_by_id(produto_id)
         if not produto_obj:
             return "Produto não encontrado"
@@ -100,7 +124,7 @@ class ProdutoController(BaseController):
             except Exception as e:
                 error_message = f"Erro ao atualizar produto. Verifique os dados: {e}"
                 
-                from models.produto import produto 
+                
                 temp_produto = produto(
                     id=produto_id, 
                     name=request.forms.get('name', produto_obj.name),
@@ -112,6 +136,7 @@ class ProdutoController(BaseController):
 
 
     def delete_produto(self, produto_id):
+       
         self.produto_service.delete_produto(produto_id)
         self.redirect('/produtos')
 
