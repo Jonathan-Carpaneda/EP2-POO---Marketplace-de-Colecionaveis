@@ -8,9 +8,9 @@
         </a>
     </div>
     
-    <div class="card profile-card">
+    <div class="card detail-card mt-4">
         <div class="card-header bg-primary text-white">
-            Informações Básicas
+            Informações de Acesso
         </div>
         <div class="card-body">
             <p><strong>ID:</strong> {{user.id}}</p>
@@ -25,20 +25,10 @@
         </div>
     </div>
 
-    <div class="card detail-card mt-4">
-        <div class="card-header bg-secondary text-white">
-            Detalhes de Contato e Endereço
-        </div>
-        <div class="card-body">
-            <p><strong>Telefone:</strong> {{user.phone if user.phone else '-'}}</p>
-            <p><strong>Endereço:</strong> {{user.address if user.address else '-'}}</p>
-        </div>
-    </div>
-    
     % if user.user_type == 'PF':
     <div class="card detail-card mt-4">
-        <div class="card-header bg-success text-white">
-            Detalhes de Pessoa Física
+        <div class="card-header bg-secondary text-white">
+            Detalhes de Pessoa Física (PF)
         </div>
         <div class="card-body">
             <p><strong>Nome Completo:</strong> {{user.name}}</p>
@@ -46,9 +36,9 @@
             <p><strong>Data de Nascimento:</strong> {{user.birthdate if user.birthdate else '-'}}</p>
         </div>
     </div>
-    % elif user.user_type == 'PJ':
+    % else:
     <div class="card detail-card mt-4">
-        <div class="card-header bg-info text-white">
+        <div class="card-header bg-secondary text-white">
             Detalhes de Lojista (PJ)
         </div>
         <div class="card-body">
@@ -59,6 +49,16 @@
     </div>
     % end
     
+    <div class="card detail-card mt-4">
+        <div class="card-header bg-secondary text-white">
+            Detalhes de Contato e Endereço
+        </div>
+        <div class="card-body">
+            <p><strong>Telefone:</strong> {{user.phone if user.phone else '-'}}</p>
+            <p><strong>Endereço:</strong> {{user.address if user.address else '-'}}</p>
+        </div>
+    </div>
+
     <div class="mt-4">
         <a href="/users" class="btn btn-outline-primary">
             <i class="fas fa-arrow-left"></i> Voltar para a Gestão de Usuários
@@ -68,36 +68,37 @@
 
 <style>
 .user-profile-section { padding: 20px; }
-.profile-card, .detail-card { 
+.detail-card { 
     border-radius: 8px; 
     overflow: hidden; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    background-color: #16213e; 
+    margin-bottom: 20px;
 }
-.card-header { 
-    padding: 10px 15px; 
+.detail-card .card-header { 
+    padding: 15px; 
     font-weight: bold; 
     color: white;
+    background-color: #0f3460; 
 }
-.card-body p { 
-    margin-bottom: 5px; 
+.detail-card .bg-primary { background-color: #e94560 !important; }
+.detail-card .bg-secondary { background-color: #2e4a86 !important; }
+.detail-card .card-body { padding: 15px; }
+.detail-card .card-body p { 
+    margin-bottom: 8px; 
     padding: 5px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #1a1a2e; 
+    color: #e0e0e0;
 }
-.card-body p:last-child { 
-    border-bottom: none;
-}
-/* Cores baseadas nas tags do users.tpl */
-.bg-primary { background-color: #3f72af !important; }
-.bg-secondary { background-color: #16213e !important; }
-.bg-success { background-color: #28a745 !important; }
-.bg-info { background-color: #007bff !important; }
+.detail-card .card-body p:last-child { border-bottom: none; margin-bottom: 0;}
 .user-tag {
-    padding: 3px 8px;
+    padding: 2px 8px;
     border-radius: 4px;
+    font-size: 0.9em;
     font-weight: bold;
-    font-size: 0.85em;
-    color: white;
+    display: inline-block;
 }
-.tag-pf { background-color: #007bff; }
-.tag-pj { background-color: #ffc947; color: #16213e; }
+.tag-pf { background-color: #ffc947; color: #1a1a2e; }
+.tag-pj { background-color: #e94560; color: white; }
+.mt-4 { margin-top: 1.5rem; }
 </style>
