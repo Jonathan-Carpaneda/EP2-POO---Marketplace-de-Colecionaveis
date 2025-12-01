@@ -24,45 +24,44 @@ class ProdutoService:
         """Busca produtos por nome e faixa de preço."""
         return self.model.search(name_query, price_min, price_max)
 
-    # --- Métodos de Escrita/Manipulação (POST/PUT/DELETE) ---
 
-    def create_produto(self, produto_data: dict) -> produto:
-        """Cria um novo produto, incluindo a lógica para determinar o próximo ID."""
+
+    def create_produto(self, produto_data: dict, owner_id: str) -> produto:
+        """Cria um novo produto, associando ao ID do dono."""
         
         all_produtos = self.model.get_all()
-        next_id = max(p.id for p in all_produtos) + 1 if all_produtos else 1
+        next_id = max([p.id for p in all_produtos], default=0) + 1
         
         new_produto = produto(
             id=next_id,
             name=produto_data['name'],
             description=produto_data['description'],
             price=produto_data['price'],
-            stock_quantity=produto_data['stock_quantity']
+            stock_quantity=produto_data['stock_quantity'],
+            owner_id=owner_id 
         )
         
         self.model.add_produto(new_produto)
         return new_produto
 
     def update_produto(self, produto_id: int, produto_data: dict) -> bool:
-        """Atualiza um produto existente. Retorna True se atualizado, False caso contrário."""
-        
         existing_produto = self.model.get_by_id(produto_id)
         if not existing_produto:
             return False
-        
+    
         updated_produto = produto(
             id=produto_id, 
             name=produto_data['name'],
             description=produto_data['description'],
             price=produto_data['price'],
-            stock_quantity=produto_data['stock_quantity']
+            stock_quantity=produto_data['stock_quantity'],
+            owner_id=existing_produto.owner_id
         )
         
         self.model.update_produto(updated_produto)
         return True
-
+    
     def delete_produto(self, produto_id: int):
-        """Deleta um produto pelo ID."""
         self.model.delete_produto(produto_id)
 
 

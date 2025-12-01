@@ -13,15 +13,22 @@ class produto:
     description: str
     price: float
     stock_quantity: int
+    owner_id: str = None
 
     def to_dict(self):
-       
         return asdict(self)
 
     @classmethod
     def from_dict(cls, data):
-        
-        return cls(**data)
+        # O .get() evita erro se o JSON antigo não tiver o owner_id
+        return cls(
+            id=data['id'],
+            name=data['name'],
+            description=data['description'],
+            price=data['price'],
+            stock_quantity=data['stock_quantity'],
+            owner_id=data.get('owner_id') # <--- NOVO
+        )
 
 
 class produtoModel:
@@ -47,7 +54,8 @@ class produtoModel:
 
 
     def get_all(self) -> List[produto]:
-        return self.produto
+        self.produtos = self._load()
+        return self.produtos
 
 
     def get_by_id(self, produto_id: int) -> produto | None:
