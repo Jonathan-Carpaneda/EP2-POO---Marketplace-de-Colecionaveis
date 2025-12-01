@@ -79,6 +79,7 @@ class UserModel:
 
 
     def get_all(self):
+        self.users = self._load()
         return self.users
 
 
