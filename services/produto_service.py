@@ -1,139 +1,69 @@
-from bottle import Bottle, request, redirect 
-from .base_controller import BaseController
+from models.produto import produtoModel, produto
+from typing import List
 
-
-from services.produto_service import produtoModel, produto 
-
-
-class ProdutoController(BaseController): 
-    def __init__(self, app):
-        super().__init__(app)
-
-        self.setup_routes()
-        
-        
-        self.produto_service = produtoModel()
-
-
-    def setup_routes(self):
-        self.app.route('/produtos', method='GET', callback=self.list_produtos)
-        self.app.route('/produtos/search', method='GET', callback=self.search_produtos_route) 
-        self.app.route('/produtos/add', method=['GET', 'POST'], callback=self.add_produto)
-        self.app.route('/produtos/edit/<produto_id:int>', method=['GET', 'POST'], callback=self.edit_produto)
-        self.app.route('/produtos/delete/<produto_id:int>', method='POST', callback=self.delete_produto)
-
-
-    def list_produtos(self):
-        produtos = self.produto_service.get_all()
-        
-        
-        return self.render(
-            'produto_lista', 
-            produtos=produtos,
-            search_query=None,
-            min_price=None,
-            max_price=None
-        )
-
+class ProdutoService:
+    """
+    Camada de Serviço para a entidade Produto.
+    Encapsula a lógica de negócio e interage com o ProdutoModel.
+    """
     
-    def search_produtos_route(self):
-        name_query = request.query.get('name')
+    def __init__(self):
+        self.model = produtoModel()
+
+    # --- Métodos de Leitura (GET) ---
+
+    def get_all_produtos(self) -> List[produto]:
+        """Retorna todos os produtos."""
+        return self.model.get_all()
+
+    def get_produto_by_id(self, produto_id: int) -> produto | None:
+        """Retorna um produto pelo ID."""
+        return self.model.get_by_id(produto_id)
+
+    def search_produtos(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[produto]:
+        """Busca produtos por nome e faixa de preço."""
+        return self.model.search(name_query, price_min, price_max)
+
+    # --- Métodos de Escrita/Manipulação (POST/PUT/DELETE) ---
+
+    def create_produto(self, produto_data: dict) -> produto:
+        """Cria um novo produto, incluindo a lógica para determinar o próximo ID."""
         
-        try:
-            price_min = float(request.query.get('min_price')) if request.query.get('min_price') else None
-            price_max = float(request.query.get('max_price')) if request.query.get('max_max') else None
-        except ValueError:
-            produtos = self.produto_service.get_all()
-           
-            
-            return self.render('produto_lista', produtos=produtos, error="Erro: Preço mínimo ou máximo inválido.", search_query=name_query, min_price=price_min, max_price=price_max)
-
-       
-        produtos = self.produto_service.search(name_query, price_min, price_max)
+        all_produtos = self.model.get_all()
+        next_id = max(p.id for p in all_produtos) + 1 if all_produtos else 1
         
+        new_produto = produto(
+            id=next_id,
+            name=produto_data['name'],
+            description=produto_data['description'],
+            price=produto_data['price'],
+            stock_quantity=produto_data['stock_quantity']
+        )
         
-        return self.render('produto_lista', produtos=produtos, search_query=name_query, min_price=price_min, max_price=price_max)
+        self.model.add_produto(new_produto)
+        return new_produto
+
+    def update_produto(self, produto_id: int, produto_data: dict) -> bool:
+        """Atualiza um produto existente. Retorna True se atualizado, False caso contrário."""
+        
+        existing_produto = self.model.get_by_id(produto_id)
+        if not existing_produto:
+            return False
+        
+        updated_produto = produto(
+            id=produto_id, 
+            name=produto_data['name'],
+            description=produto_data['description'],
+            price=produto_data['price'],
+            stock_quantity=produto_data['stock_quantity']
+        )
+        
+        self.model.update_produto(updated_produto)
+        return True
+
+    def delete_produto(self, produto_id: int):
+        """Deleta um produto pelo ID."""
+        self.model.delete_produto(produto_id)
 
 
-    def add_produto(self):
-        if request.method == 'GET':
-            
-            return self.render('produto_cadastro', produto=None, action="/produtos/add")
-        else:
-            
-            try:
-                
-                all_produtos = self.produto_service.get_all()
-                next_id = max(p.id for p in all_produtos) + 1 if all_produtos else 1
-                
-                
-                new_produto = produto(
-                    id=next_id,
-                    name=request.forms.get('name'),
-                    description=request.forms.get('description'),
-                    price=float(request.forms.get('price')),
-                    stock_quantity=int(request.forms.get('stock_quantity'))
-                )
-                
-                
-                self.produto_service.add_produto(new_produto)
-                return self.redirect('/produtos')
-                
-            except Exception as e:
-                
-                error_message = f"Erro ao salvar produto. Verifique os dados: {e}"
-                
-                temp_produto = produto(
-                    id=0, 
-                    name=request.forms.get('name', ''),
-                    description=request.forms.get('description', ''),
-                    price=0.0,
-                    stock_quantity=0
-                )
-                return self.render('produto_cadastro', produto=temp_produto, action="/produtos/add", error=error_message)
-
-
-    def edit_produto(self, produto_id):
-        produto_obj = self.produto_service.get_by_id(produto_id)
-        if not produto_obj:
-            return "Produto não encontrado"
-
-        if request.method == 'GET':
-            
-            return self.render('produto_cadastro', produto=produto_obj, action=f"/produtos/edit/{produto_id}")
-        else:
-            
-            try:
-                
-                updated_produto = produto(
-                    id=produto_id, 
-                    name=request.forms.get('name'),
-                    description=request.forms.get('description'),
-                    price=float(request.forms.get('price')),
-                    stock_quantity=int(request.forms.get('stock_quantity'))
-                )
-                
-               
-                self.produto_service.update_produto(updated_produto)
-                return self.redirect('/produtos')
-                
-            except Exception as e:
-                error_message = f"Erro ao atualizar produto. Verifique os dados: {e}"
-                
-                temp_produto = produto(
-                    id=produto_id, 
-                    name=request.forms.get('name', produto_obj.name),
-                    description=request.forms.get('description', produto_obj.description),
-                    price=float(request.forms.get('price', produto_obj.price)),
-                    stock_quantity=int(request.forms.get('stock_quantity', produto_obj.stock_quantity))
-                )
-                return self.render('produto_cadastro', produto=temp_produto, action=f"/produtos/edit/{produto_id}", error=error_message)
-
-
-    def delete_produto(self, produto_id):
-        self.produto_service.delete_produto(produto_id)
-        self.redirect('/produtos')
-
-
-produto_routes = Bottle()
-produto_controller = ProdutoController(produto_routes)
+produto_service = ProdutoService()
