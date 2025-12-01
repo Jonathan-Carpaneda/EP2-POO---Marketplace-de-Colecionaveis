@@ -21,6 +21,7 @@ class UserController(BaseController):
 
 
     def list_users(self):
+        self.require_admin()
         users = self.user_service.get_all()
         return self.render('users', users=users)
 
