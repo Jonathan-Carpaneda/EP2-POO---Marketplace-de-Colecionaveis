@@ -1,38 +1,25 @@
-from models.produto import produtoModel, produto
+from models.produto import ProdutoModel, Produto
 from typing import List
 
 class ProdutoService:
-    """
-    Camada de Serviço para a entidade Produto.
-    Encapsula a lógica de negócio e interage com o ProdutoModel.
-    """
-    
     def __init__(self):
-        self.model = produtoModel()
+        self.model = ProdutoModel()
 
-    # --- Métodos de Leitura (GET) ---
-
-    def get_all_produtos(self) -> List[produto]:
-        """Retorna todos os produtos."""
+    def get_all_produtos(self) -> List[Produto]:
         return self.model.get_all()
 
-    def get_produto_by_id(self, produto_id: int) -> produto | None:
-        """Retorna um produto pelo ID."""
-        return self.model.get_by_id(produto_id)
+    def get_produto_by_id(self, produto_id) -> Produto | None:
+        return self.model.get_by_id(str(produto_id))
 
-    def search_produtos(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[produto]:
-        """Busca produtos por nome e faixa de preço."""
+    def get_produtos_by_owner(self, owner_id: str) -> List[Produto]:
+        return self.model.get_by_owner(str(owner_id))
+
+    def search_produtos(self, name_query: str = None, price_min: float = None, price_max: float = None) -> List[Produto]:
         return self.model.search(name_query, price_min, price_max)
 
-
-    def create_produto(self, produto_data: dict, owner_id: str) -> produto:
-        """Cria um novo produto, associando ao ID do dono."""
-        
-        all_produtos = self.model.get_all()
-        next_id = max([p.id for p in all_produtos], default=0) + 1
-        
-        new_produto = produto(
-            id=next_id,
+    def create_produto(self, produto_data: dict, owner_id: str) -> Produto:
+        new_produto = Produto(
+            id=None,
             name=produto_data['name'],
             description=produto_data['description'],
             price=produto_data['price'],
@@ -44,13 +31,14 @@ class ProdutoService:
         self.model.add_produto(new_produto)
         return new_produto
 
-    def update_produto(self, produto_id: int, produto_data: dict) -> bool:
-        existing_produto = self.model.get_by_id(produto_id)
+    def update_produto(self, produto_id, produto_data: dict) -> bool:
+        pid_str = str(produto_id)
+        existing_produto = self.model.get_by_id(pid_str)
         if not existing_produto:
             return False
-    
-        updated_produto = produto(
-            id=produto_id, 
+        
+        updated_produto = Produto(
+            id=pid_str, 
             name=produto_data['name'],
             description=produto_data['description'],
             price=produto_data['price'],
@@ -61,9 +49,6 @@ class ProdutoService:
         
         self.model.update_produto(updated_produto)
         return True
-    
-    def delete_produto(self, produto_id: int):
-        self.model.delete_produto(produto_id)
 
-
-produto_service = ProdutoService()
+    def delete_produto(self, produto_id):
+        self.model.delete_produto(str(produto_id))
