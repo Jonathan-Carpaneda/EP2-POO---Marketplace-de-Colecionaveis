@@ -809,3 +809,9 @@ h1 {
 }
 
 .mt-4 { margin-top: 1.5rem; }
+
+img {
+    max-width: 100%; 
+    height: auto;    
+    display: block;  
+}
