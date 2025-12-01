@@ -21,6 +21,9 @@ class ProdutoController(BaseController):
         self.app.route('/produtos/add', method=['GET', 'POST'], callback=self.add_produto)
         self.app.route('/produtos/edit/<produto_id:int>', method=['GET', 'POST'], callback=self.edit_produto)
         self.app.route('/produtos/delete/<produto_id:int>', method='POST', callback=self.delete_produto)
+        
+        # ROTA CORRIGIDA/ADICIONADA: Agora chama o método view_produto_details
+        self.app.route('/produtos/view/<produto_id:int>', method='GET', callback=self.view_produto_details) 
 
 
     
@@ -133,6 +136,17 @@ class ProdutoController(BaseController):
                     stock_quantity=int(request.forms.get('stock_quantity', produto_obj.stock_quantity))
                 )
                 return self.render('produto_cadastro', produto=temp_produto, action=f"/produtos/edit/{produto_id}", error=error_message)
+
+    
+    # MÉTODO ADICIONADO: Função para exibir detalhes (callback da rota /produtos/view)
+    def view_produto_details(self, produto_id: int):
+        """Exibe os detalhes de um produto específico."""
+        produto_obj = self.produto_service.get_produto_by_id(produto_id)
+        
+        if not produto_obj:
+            return "Produto não encontrado", 404
+        
+        return self.render('produto_detalhe', produto=produto_obj) # Chama o novo template 'produto_detalhe'
 
 
     def delete_produto(self, produto_id):
