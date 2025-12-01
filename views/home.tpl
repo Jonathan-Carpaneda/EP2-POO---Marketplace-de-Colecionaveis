@@ -35,11 +35,11 @@
                 
                 <div class="card-body">
                     <h3 class="card-title">{{produto.name}}</h3>
-                    
+            
                     <p class="card-text">
                         {{produto.description[:100]}}{{ '...' if len(produto.description) > 100 else '' }}
                     </p>
-                    
+                   
                     <div class="price-tag">
                         R$ {{'%.2f' % produto.price}}
                     </div>
@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="card-actions">
-                        <a href="/produtos/edit/{{produto.id}}" class="btn-details">
+                        <a href="/produtos/view/{{produto.id}}" class="btn-details">
                             <i class="fas fa-shopping-cart"></i> Ver Detalhes
                         </a>
                     </div>
