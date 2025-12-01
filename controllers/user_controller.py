@@ -10,12 +10,14 @@ class UserController(BaseController):
         self.user_service = UserService()
 
 
-    # Rotas User
+    
     def setup_routes(self):
         self.app.route('/users', method='GET', callback=self.list_users)
         self.app.route('/users/add', method=['GET', 'POST'], callback=self.add_user)
         self.app.route('/users/edit/<user_id:int>', method=['GET', 'POST'], callback=self.edit_user)
         self.app.route('/users/delete/<user_id:int>', method='POST', callback=self.delete_user)
+       
+        self.app.route('/users/profile/<user_id:int>', method='GET', callback=self.view_user_profile)
 
 
     def list_users(self):
@@ -23,11 +25,20 @@ class UserController(BaseController):
         return self.render('users', users=users)
 
 
+    def view_user_profile(self, user_id):
+        """Exibe os detalhes completos do perfil de um usuário."""
+        user = self.user_service.get_by_id(user_id)
+        if not user:
+            return "Usuário não encontrado"
+
+        return self.render('user_profile', user=user)
+
+    
     def add_user(self):
         if request.method == 'GET':
             return self.render('user_form', user=None, action="/users/add")
         else:
-            # POST - salvar usuário
+            
             self.user_service.save()
             self.redirect('/users')
 
@@ -40,7 +51,7 @@ class UserController(BaseController):
         if request.method == 'GET':
             return self.render('user_form', user=user, action=f"/users/edit/{user_id}")
         else:
-            # POST - salvar edição
+            
             self.user_service.edit_user(user)
             self.redirect('/users')
 
