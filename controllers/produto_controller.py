@@ -73,11 +73,13 @@ class ProdutoController(BaseController):
 
 
     def add_produto(self):
-        
         if request.method == 'GET':
             return self.render('produto_cadastro', produto=None, action="/produtos/add")
         else:
             try:
+                current_user = self.get_current_user()
+                if not current_user:
+                    return self.redirect('/login')
                 produto_data = {
                     'name': request.forms.get('name'),
                     'description': request.forms.get('description'),
@@ -85,34 +87,30 @@ class ProdutoController(BaseController):
                     'stock_quantity': int(request.forms.get('stock_quantity'))
                 }
                 
-                self.produto_service.create_produto(produto_data)
+                self.produto_service.create_produto(produto_data, owner_id=current_user.id)
                 return self.redirect('/produtos')
                 
             except Exception as e:
-                error_message = f"Erro ao salvar produto. Verifique os dados: {e}"
-                
-                
+                error_message = f"Erro ao salvar: {e}"
                 temp_produto = produto(
                     id=0, 
                     name=request.forms.get('name', ''),
                     description=request.forms.get('description', ''),
                     price=0.0,
-                    stock_quantity=0
+                    stock_quantity=0,
+                    owner_id=None
                 )
                 return self.render('produto_cadastro', produto=temp_produto, action="/produtos/add", error=error_message)
 
 
     def edit_produto(self, produto_id):
-        
         produto_obj = self.produto_service.get_produto_by_id(produto_id)
         if not produto_obj:
             return "Produto não encontrado"
 
         if request.method == 'GET':
-            
             return self.render('produto_cadastro', produto=produto_obj, action=f"/produtos/edit/{produto_id}")
         else:
-            
             try:
                 produto_data = {
                     'name': request.forms.get('name'),
@@ -120,40 +118,22 @@ class ProdutoController(BaseController):
                     'price': float(request.forms.get('price')),
                     'stock_quantity': int(request.forms.get('stock_quantity'))
                 }
-                
                 self.produto_service.update_produto(produto_id, produto_data)
                 return self.redirect('/produtos')
-                
             except Exception as e:
-                error_message = f"Erro ao atualizar produto. Verifique os dados: {e}"
-                
-                
-                temp_produto = produto(
-                    id=produto_id, 
-                    name=request.forms.get('name', produto_obj.name),
-                    description=request.forms.get('description', produto_obj.description),
-                    price=float(request.forms.get('price', produto_obj.price)),
-                    stock_quantity=int(request.forms.get('stock_quantity', produto_obj.stock_quantity))
-                )
-                return self.render('produto_cadastro', produto=temp_produto, action=f"/produtos/edit/{produto_id}", error=error_message)
+                error_message = f"Erro: {e}"
+                return self.render('produto_cadastro', produto=produto_obj, action=f"/produtos/edit/{produto_id}", error=error_message)
 
-    
-    # MÉTODO ADICIONADO: Função para exibir detalhes (callback da rota /produtos/view)
     def view_produto_details(self, produto_id: int):
-        """Exibe os detalhes de um produto específico."""
         produto_obj = self.produto_service.get_produto_by_id(produto_id)
-        
         if not produto_obj:
             return "Produto não encontrado", 404
-        
-        return self.render('produto_detalhe', produto=produto_obj) # Chama o novo template 'produto_detalhe'
+        return self.render('produto_detalhe', produto=produto_obj)
 
 
     def delete_produto(self, produto_id):
-       
         self.produto_service.delete_produto(produto_id)
         self.redirect('/produtos')
-
 
 produto_routes = Bottle()
 produto_controller = ProdutoController(produto_routes)
