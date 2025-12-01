@@ -17,13 +17,15 @@
             <ul class="nav-links">
                 
                 % if defined('current_user') and current_user:
-                    <li style="color: #ffc947; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-user-circle"></i> 
-                        {{current_user.name.split()[0]}}
-                        
-                        % if current_user.user_type == 'ADMIN':
-                            <span style="background: #e94560; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.7em;">ADM</span>
-                        % end
+                    <li>
+                        <a href="/profile" title="Ver meu perfil" style="color: #ffc947; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                            <i class="fas fa-user-circle"></i> 
+                            {{current_user.name.split()[0]}}
+                            
+                            % if current_user.user_type == 'ADMIN':
+                                <span style="background: #e94560; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.7em;">ADM</span>
+                            % end
+                        </a>
                     </li>
 
                     <li>

@@ -1,13 +1,18 @@
 import json
 import os
+import uuid
 from dataclasses import dataclass, asdict
 from typing import List
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 class User:
-    def __init__(self, id, name, email, birthdate, password, user_type, cpf, cnpj, shop_name, phone, address):
-        self.id = id
+    def __init__(self, email, birthdate, password, user_type, cpf, cnpj, shop_name, phone, address, name="Usuário", id=None):
+        if id is None:
+            self.id = str(uuid.uuid4())
+        else:
+            self.id = str(id)
+    
         self.name = name
         self.email = email
         self.password = password
@@ -18,6 +23,8 @@ class User:
         self.shop_name = shop_name
         self.phone = phone
         self.address = address
+
+       
 
 
     def __repr__(self):
@@ -44,7 +51,7 @@ class User:
     @classmethod
     def from_dict(cls, data):
         return cls(
-            id=data['id'],
+            id=data.get('id'),
             name=data['name'],
             email=data['email'],
             birthdate=data['birthdate'],
@@ -83,9 +90,9 @@ class UserModel:
         return self.users
 
 
-    def get_by_id(self, user_id: int):
+    def get_by_id(self, user_id: str):
         self.users = self._load()
-        return next((u for u in self.users if u.id == user_id), None)
+        return next((u for u in self.users if u.id == str(user_id)), None)
 
 
     def add_user(self, user: User):

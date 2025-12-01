@@ -8,13 +8,10 @@ class UserService:
 
     def _create_default_admin(self):
         users = self.user_model.get_all()
-        # Verifica se já existe alguém com o email do admin padrão
         admin_email = "admin@sistema.com"
         if not any(u.email == admin_email for u in users):
             print("[SISTEMA] Criando Admin Padrão...")
-            new_id = max([u.id for u in users], default=0) + 1
             admin_user = User(
-                id=new_id,
                 name="Super Admin",
                 email=admin_email,
                 password="admin",
@@ -28,11 +25,9 @@ class UserService:
         return self.user_model.get_all()
 
     def get_by_id(self, user_id):
-        try:
-            id_numero = int(user_id)
-            return self.user_model.get_by_id(id_numero)
-        except (ValueError, TypeError):
+        if not user_id:
             return None
+        return self.user_model.get_by_id(str(user_id))
 
     def save(self):
         user_type = request.forms.get('user_type')
@@ -57,11 +52,8 @@ class UserService:
         phone = request.forms.get('phone')
         address = request.forms.get('address')
 
-        existing_users = self.user_model.get_all()
-        new_id = max([u.id for u in existing_users], default=0) + 1
-
         new_user = User(
-            id=new_id,
+            id=None,
             name=name,
             email=email,
             password=password,
