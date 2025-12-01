@@ -57,6 +57,11 @@
                     <td>{{u.phone if u.phone else '-'}}</td>
 
                     <td class="actions">
+                        
+                        <a href="/users/profile/{{u.id}}" class="btn btn-sm btn-info" style="margin-bottom: 5px;">
+                            <i class="fas fa-user-circle"></i> Ver Perfil
+                        </a>
+                        
                         <a href="/users/edit/{{u.id}}" class="btn btn-sm btn-edit">
                             <i class="fas fa-edit"></i> Editar
                         </a>
@@ -74,3 +79,4 @@
         </table>
     </div>
 </section>
+```<ctrl63>
