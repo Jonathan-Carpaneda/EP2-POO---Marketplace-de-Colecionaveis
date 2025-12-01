@@ -380,6 +380,21 @@ h1 {
     display: inline-block;
 }
 
+.tag-large {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+/* NOVA TAG para produto esgotado */
+.tag-out-of-stock {
+    background-color: #e94560; 
+    color: white;
+    /* Usa tag-large para padding e tamanho */
+}
+
+
 /* ---------------------------------------------------- */
 /* 7. BOTÕES DE AÇÃO NA TABELA */
 /* ---------------------------------------------------- */
@@ -714,3 +729,83 @@ h1 {
     font-weight: bold;
     box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
 }
+
+/* ---------------------------------------------------- */
+/* 12. ESTILOS DE CARDS DE DETALHE (User Profile e Produto) */
+/* ---------------------------------------------------- */
+
+.user-profile-section, .produto-detalhe-section { padding: 20px 0; }
+
+.header-detalhe, .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-detalhe h1 {
+    border-bottom: none; 
+}
+
+/* Estilos de Card de Detalhe */
+.detail-card { 
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    background-color: #16213e; 
+    margin-bottom: 20px;
+}
+.detail-card .card-header { 
+    padding: 15px; 
+    font-weight: bold; 
+    color: white;
+    background-color: #0f3460; 
+}
+.detail-card .bg-primary { background-color: #e94560 !important; }
+.detail-card .bg-secondary { background-color: #2e4a86 !important; }
+
+.detail-card .card-body { padding: 15px; }
+.detail-card .card-body p { 
+    margin-bottom: 8px; 
+    padding: 5px 0;
+    border-bottom: 1px solid #1a1a2e; 
+    color: #e0e0e0;
+}
+.detail-card .card-body p:last-child { border-bottom: none; margin-bottom: 0;}
+
+/* Estilos de Tags de Usuário */
+.user-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+    display: inline-block;
+}
+.tag-pf { background-color: #ffc947; color: #1a1a2e; }
+.tag-pj { background-color: #0f3460; color: #ffc947; border: 1px solid #ffc947; }
+.tag-admin { background-color: #8b0000; color: white; border: 1px solid #e94560; }
+
+
+/* Estilos Específicos do Detalhe do Produto (Adaptados) */
+.price-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #e94560; 
+}
+
+.stock-value {
+    font-weight: bold;
+}
+
+.description-text {
+    line-height: 1.8;
+    color: #b0b0b0;
+    white-space: pre-wrap; 
+}
+
+.product-icon-placeholder {
+    color: #e94560; 
+    font-size: 6em;
+}
+
+.mt-4 { margin-top: 1.5rem; }
