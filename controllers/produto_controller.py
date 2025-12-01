@@ -21,8 +21,6 @@ class ProdutoController(BaseController):
         self.app.route('/produtos/add', method=['GET', 'POST'], callback=self.add_produto)
         self.app.route('/produtos/edit/<produto_id:int>', method=['GET', 'POST'], callback=self.edit_produto)
         self.app.route('/produtos/delete/<produto_id:int>', method='POST', callback=self.delete_produto)
-        
-        # ROTA CORRIGIDA/ADICIONADA: Agora chama o método view_produto_details
         self.app.route('/produtos/view/<produto_id:int>', method='GET', callback=self.view_produto_details) 
 
 
@@ -84,7 +82,8 @@ class ProdutoController(BaseController):
                     'name': request.forms.get('name'),
                     'description': request.forms.get('description'),
                     'price': float(request.forms.get('price')),
-                    'stock_quantity': int(request.forms.get('stock_quantity'))
+                    'stock_quantity': int(request.forms.get('stock_quantity')),
+                    'image_url': request.forms.get('image_url') 
                 }
                 
                 self.produto_service.create_produto(produto_data, owner_id=current_user.id)
@@ -98,7 +97,8 @@ class ProdutoController(BaseController):
                     description=request.forms.get('description', ''),
                     price=0.0,
                     stock_quantity=0,
-                    owner_id=None
+                    owner_id=None,
+                    image_url=request.forms.get('image_url', '') 
                 )
                 return self.render('produto_cadastro', produto=temp_produto, action="/produtos/add", error=error_message)
 
@@ -116,7 +116,8 @@ class ProdutoController(BaseController):
                     'name': request.forms.get('name'),
                     'description': request.forms.get('description'),
                     'price': float(request.forms.get('price')),
-                    'stock_quantity': int(request.forms.get('stock_quantity'))
+                    'stock_quantity': int(request.forms.get('stock_quantity')),
+                    'image_url': request.forms.get('image_url') 
                 }
                 self.produto_service.update_produto(produto_id, produto_data)
                 return self.redirect('/produtos')

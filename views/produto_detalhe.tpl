@@ -7,10 +7,18 @@
     </div>
 
     <div class="detalhe-card">
+        
+        % if produto.image_url:
+        <div class="detalhe-image-container full-width">
+            <img src="{{produto.image_url}}" alt="Imagem do Produto {{produto.name}}" class="produto-detalhe-image">
+        </div>
+        % end
+        
         <div class="detalhe-info-group">
             <h3 class="info-title">Informações Básicas</h3>
             <p><strong>ID:</strong> {{produto.id}}</p>
             <p><strong>Nome:</strong> {{produto.name}}</p>
+ 
         </div>
 
         <div class="detalhe-info-group">
@@ -29,10 +37,11 @@
             <p class="description-text">{{produto.description}}</p>
         </div>
         
-        <div class="detalhe-actions full-width">
+        <div 
+ class="detalhe-actions full-width">
             <a href="/produtos/edit/{{produto.id}}" class="btn btn-edit"><i class="fas fa-edit"></i> Editar Produto</a>
             <form action="/produtos/delete/{{produto.id}}" method="post" style="display:inline;"
-                onsubmit="return confirm('Tem certeza que deseja excluir o produto {{produto.name}}?')">
+ onsubmit="return confirm('Tem certeza que deseja excluir o produto {{produto.name}}?')">
                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Excluir Produto</button>
             </form>
         </div>

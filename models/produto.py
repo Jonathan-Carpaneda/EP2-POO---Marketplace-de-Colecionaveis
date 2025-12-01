@@ -14,20 +14,22 @@ class produto:
     price: float
     stock_quantity: int
     owner_id: str = None
+    image_url: str = None 
 
     def to_dict(self):
         return asdict(self)
 
     @classmethod
     def from_dict(cls, data):
-        # O .get() evita erro se o JSON antigo não tiver o owner_id
+        
         return cls(
             id=data['id'],
             name=data['name'],
             description=data['description'],
             price=data['price'],
             stock_quantity=data['stock_quantity'],
-            owner_id=data.get('owner_id') # <--- NOVO
+            owner_id=data.get('owner_id'), 
+            image_url=data.get('image_url') 
         )
 
 
