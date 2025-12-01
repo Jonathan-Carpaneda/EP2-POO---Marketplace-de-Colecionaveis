@@ -1,10 +1,10 @@
 % rebase('layout', title='Login')
 
 <section class="form-section">
-    <h1>Acesso ao Sistema</h1>
+    <h1 style="text-align: center;"><i class="fas fa-sign-in-alt"></i> Acesso ao Sistema</h1>
     
     % if defined('error') and error:
-    <div class="alert-error" style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; margin-bottom: 20px; border-radius: 4px;">
+    <div class="alert alert-danger" style="color: #ffc947; background-color: #3e0c19; border: 1px solid #e94560; padding: 15px; margin-bottom: 25px; border-radius: 6px; font-weight: bold;">
         {{error}}
     </div>
     % end
@@ -23,11 +23,11 @@
                    placeholder="Sua senha">
         </div>
         
-        <div class="form-actions" style="display: flex; flex-direction: column; gap: 15px;">
+        <div class="form-actions" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
             <button type="submit" class="btn-submit" style="width: 100%;">Entrar</button>
             
-            <p style="text-align: center; margin: 0;">
-                Ainda não tem conta? <a href="/users/add">Cadastre-se aqui</a>
+            <p style="text-align: center; margin: 0; color: #b0b0b0;">
+                Ainda não tem conta? <a href="/users/add" style="color: #ffc947; text-decoration: none; font-weight: bold;">Cadastre-se aqui</a>
             </p>
         </div>
     </form>
