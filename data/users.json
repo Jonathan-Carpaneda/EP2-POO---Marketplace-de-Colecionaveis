@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "name": "Super Admin",
+        "email": "admin@sistema.com",
+        "password": "admin",
+        "birthdate": null,
+        "user_type": "ADMIN",
+        "cpf": null,
+        "cnpj": null,
+        "shop_name": null,
+        "phone": null,
+        "address": "Sede"
+    }
+]
