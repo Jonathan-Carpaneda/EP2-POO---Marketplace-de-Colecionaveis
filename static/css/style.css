@@ -28,7 +28,7 @@ h1 {
 }
 
 /* ---------------------------------------------------- */
-/* 2. HEADER E NAVBAR */
+/* 2. HEADER E NAVBAR (CORRIGIDO PARA BOTÕES NA NAV) */
 /* ---------------------------------------------------- */
 
 .navbar {
@@ -40,30 +40,47 @@ h1 {
     border-bottom: 3px solid #e94560;
 }
 
-.navbar a {
-    color: #e0e0e0;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.navbar a:hover {
-    color: #ffc947; /* Amarelo/Laranja para hover */
-}
-
 /* Texto do Logo */
 .logo-text {
     font-family: 'Audiowide', cursive;
     font-size: 1.8rem;
     font-weight: normal; 
-    color: #ffc947; /* Cor de destaque para o logo */
+    color: #ffc947; 
     text-decoration: none;
     letter-spacing: 2px;
 }
 
+/* Container dos links de navegação */
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px; /* Espaçamento entre os botões */
+}
+
+/* Estilo para transformar os links em botões (caixas) */
+.nav-links li a {
+    background-color: #1a1a2e; /* Fundo mais escuro que a nav-bar */
+    color: #e0e0e0;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #0f3460; /* Borda sutil */
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+/* Efeito Hover para os botões da navbar */
+.nav-links li a:hover {
+    background-color: #16213e; 
+    color: #ffc947; 
+    border-color: #e94560; 
+}
+
 /* ---------------------------------------------------- */
-/* 3. LAYOUT DE FORMULÁRIO (user_form.tpl) */
+/* 3. LAYOUT DE FORMULÁRIO (user_form.tpl / produto_cadastro.tpl) */
 /* ---------------------------------------------------- */
 
 .form-section {
@@ -98,6 +115,7 @@ h1 {
 .form-container input[type="date"],
 .form-container input[type="tel"],
 .form-container input[type="password"],
+.form-container input[type="number"], 
 .form-container select, 
 .form-container textarea { 
     width: 100%;
@@ -114,13 +132,16 @@ h1 {
 
 .form-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; 
+    gap: 10px; 
     margin-top: 30px;
 }
 
 /* ---------------------------------------------------- */
 /* 4. BOTÕES (Geral e Form) */
 /* ---------------------------------------------------- */
+
+/* Botão de Envio de Formulário */
 .btn-submit {
     background-color: #e94560;
     color: white;
@@ -131,6 +152,9 @@ h1 {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s;
+    display: inline-flex; 
+    align-items: center;
+    gap: 8px;
 }
 
 .btn-cancel {
@@ -143,14 +167,20 @@ h1 {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s;
+    display: inline-flex; 
+    align-items: center;
+    gap: 8px;
 }
 
 .btn-submit:hover {
     background-color: #ff6b86;
 }
+
 .btn-cancel:hover {
     background-color: #555;
 }
+
+/* Botão primário fora de form (e.g., Novo Produto) */
 .btn-primary { 
     background-color: #e94560;
     color: white;
@@ -161,11 +191,55 @@ h1 {
     display: flex; 
     align-items: center;
     gap: 8px;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ff6b86;
+}
+
+.btn-secondary {
+    background-color: #0f3460; 
+    color: #e0e0e0;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #0f3460;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary:hover {
+    background-color: #16213e;
+    border-color: #ffc947;
+}
+
+.btn-secondary-outline {
+    background-color: transparent;
+    color: #ffc947;
+    padding: 10px 15px;
+    border: 1px solid #ffc947;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-secondary-outline:hover {
+    background-color: #ffc947;
+    color: #1a1a2e;
 }
 
 /* ---------------------------------------------------- */
-/* 5. TABELAS (users.tpl) */
+/* 5. TABELAS (users.tpl / produto_lista.tpl) */
 /* ---------------------------------------------------- */
+
 .styled-table {
     width: 100%;
     border-collapse: collapse;
@@ -194,13 +268,11 @@ h1 {
     transition: background-color 0.3s;
 }
 
-/* Estilo de Hover */
 .styled-table tbody tr:hover {
     background-color: #0f3460; 
-    color: #ffc947; /* Texto amarelo para destaque */
+    color: #ffc947; 
 }
 
-/* Container de cabeçalho da seção */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -208,14 +280,13 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Icones da lista de usuários */
 .section-title i {
     margin-right: 10px;
     color: #ffc947;
 }
 
 /* ---------------------------------------------------- */
-/* 6. TAGS DE USUÁRIO (users.tpl) */
+/* 6. TAGS E BADGES */
 /* ---------------------------------------------------- */
 
 .user-tag {
@@ -228,14 +299,24 @@ h1 {
 }
 
 .tag-pf {
-    background-color: #38a169; /* Verde (Pessoa Física) */
+    background-color: #38a169; 
     color: #fff;
 }
 
 .tag-pj {
-    background-color: #0f3460; /* Azul Escuro (Pessoa Jurídica/Lojista) */
-    color: #ffc947; /* Amarelo de destaque */
+    background-color: #0f3460; 
+    color: #ffc947; 
     border: 1px solid #ffc947;
+}
+
+.tag-danger {
+    background-color: #8b0000; 
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
 }
 
 /* ---------------------------------------------------- */
@@ -268,6 +349,7 @@ h1 {
     background-color: #ffc947; 
     color: #1a1a2e; 
 }
+
 .btn-edit:hover {
     background-color: #ffd873; 
 }
@@ -276,6 +358,7 @@ h1 {
     background-color: #e94560; 
     color: white;
 }
+
 .btn-danger:hover {
     background-color: #ff6b86;
 }
@@ -385,4 +468,41 @@ h1 {
 .card-actions .btn-delete {
     background-color: #e94560;
     color: white;
+}
+
+/* ---------------------------------------------------- */
+/* 9. SEÇÃO DE PRODUTOS/BUSCA (produto_lista.tpl) */
+/* ---------------------------------------------------- */
+
+.produto-section {
+    padding: 20px 0;
+}
+
+.search-bar {
+    background-color: #16213e;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-inline {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.form-inline input[type="text"], 
+.form-inline input[type="number"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #0f3460;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
