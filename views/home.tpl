@@ -17,6 +17,7 @@
                min="0"> <button type="submit" class="btn btn-secondary"><i class="fas fa-filter"></i> Filtrar</button>
 
         % if defined('search_query') or defined('min_price') or defined('max_price'):
+ 
             <a href="/" class="btn-secondary-outline">Limpar Filtros</a>
         % end
     </form>
@@ -30,7 +31,11 @@
             % for produto in produtos:
             <div class="product-card">
                 <div class="card-img-top">
+                    % if produto.image_url:
+                    <img src="{{produto.image_url}}" alt="Imagem do Produto" class="product-image">
+                    % else:
                     <i class="fas fa-gamepad"></i>
+                    % end
                 </div>
                 
                 <div class="card-body">

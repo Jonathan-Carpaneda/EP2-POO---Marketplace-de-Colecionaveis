@@ -7,7 +7,7 @@
     <div class="alert alert-danger">{{error}}</div>
     % end
     
-    <form action="{{action}}" method="post" class="form-container">
+    <form action="{{action}}" method="post" class="form-container" enctype="multipart/form-data">
         
         <div class="form-group">
             <label for="name">Nome do Produto:</label>
@@ -23,10 +23,13 @@
         </div>
         
         <div class="form-group">
-            <label for="image_url">URL da Imagem:</label>
-            <input type="url" id="image_url" name="image_url"
-                   value="{{produto.image_url if produto else ''}}"
-                   placeholder="Ex: https://link-da-imagem.com/produto.jpg">
+            <label for="image_file">Upload da Imagem:</label>
+            <input type="file" id="image_file" name="image_file" accept="image/*">
+            
+            % if produto and produto.image_url:
+            <p style="margin-top: 5px; font-size: 0.9em; color: #aaa;">Imagem atual:</p>
+            <img src="{{produto.image_url}}" alt="Imagem Atual" style="max-width: 150px; height: auto; display: block; margin-top: 5px;">
+            % end
         </div>
 
         <div class="form-group">
