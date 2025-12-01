@@ -7,7 +7,20 @@
         <a href="/produtos" class="btn btn-cancel"><i class="fas fa-arrow-left"></i> Voltar para a Lista</a>
     </div>
 
-    <div class="product-detail-layout">
+    <div class="detalhe-card">
+        
+        % if produto.image_url:
+        <div class="detalhe-image-container full-width">
+            <img src="{{produto.image_url}}" alt="Imagem do Produto {{produto.name}}" class="produto-detalhe-image">
+        </div>
+        % end
+        
+        <div class="detalhe-info-group">
+            <h3 class="info-title">Informações Básicas</h3>
+            <p><strong>ID:</strong> {{produto.id}}</p>
+            <p><strong>Nome:</strong> {{produto.name}}</p>
+ 
+        </div>
 
         <div class="image-gallery-column">
             <div class="card detail-card product-gallery-card">
@@ -40,7 +53,7 @@
             </div>
         </div>
 
-        <div class="info-actions-column">
+<div class="info-actions-column">
             
             <div class="card detail-card">
                 <div class="card-header bg-primary text-white">
@@ -54,6 +67,15 @@
 
             <div class="card detail-card mt-4">
                 <div class="card-header bg-secondary text-white">
+                    Descrição
+                </div>
+                <div class="card-body">
+                    <p class="description-text">{{produto.description}}</p>
+                </div>
+            </div>
+
+            <div class="card detail-card mt-4">
+                <div class="card-header bg-secondary text-white">
                     Preço & Estoque
                 </div>
                 <div class="card-body">
@@ -62,24 +84,30 @@
                     % if produto.stock_quantity == 0:
                         <p><strong>Estoque:</strong> <span class="tag-out-of-stock tag-large">Esgotado</span></p>
                     % else:
-                    <p><strong>Estoque:</strong> <span class="stock-value tag-success tag-large">{{produto.stock_quantity}} unidades</span></p>
+                        <p><strong>Estoque:</strong> <span class="stock-value tag-success tag-large">{{produto.stock_quantity}} unidades</span></p>
                     % end
                 </div>
             </div>
 
+            % if defined('current_user') and current_user and (current_user.user_type == 'ADMIN' or str(current_user.id) == str(produto.owner_id)):
             <div class="card detail-card mt-4">
                 <div class="card-header bg-secondary text-white">
-                    Ações
+                    Ações Administrativas
                 </div>
                 <div class="card-body detail-actions-buttons">
-                    <a href="/produtos/edit/{{produto.id}}" class="btn btn-edit btn-lg"><i class="fas fa-edit"></i> Editar Produto</a>
+                    <a href="/produtos/edit/{{produto.id}}" class="btn btn-edit btn-lg">
+                        <i class="fas fa-edit"></i> Editar Produto
+                    </a>
                     
                     <form action="/produtos/delete/{{produto.id}}" method="post" style="display:inline;"
-                    onsubmit="return confirm('Tem certeza que deseja excluir o produto {{produto.name}}?')">
-                        <button type="submit" class="btn btn-danger btn-lg"><i class="fas fa-trash-alt"></i> Excluir</button>
+                          onsubmit="return confirm('Tem certeza que deseja excluir o produto {{produto.name}}?')">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="fas fa-trash-alt"></i> Excluir
+                        </button>
                     </form>
                 </div>
             </div>
+            % end
 
         </div>
 
